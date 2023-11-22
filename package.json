@@ -11,5 +11,9 @@
   },
   "scripts": {
     "build": "./build.sh"
+  },
+  "prettier": {
+    "tabWidth": 4,
+    "printWidth": 130
   }
 }

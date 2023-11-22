@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "name": "Bench press"
+    },
+    {
+        "id": 2,
+        "name": "Deadlift"
+    },
+    {
+        "id": 3,
+        "name": "Squat"
+    }
+]
