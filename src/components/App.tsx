@@ -1,26 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Session from "./Session";
-import AppContext from "./AppContext";
-import Main from "./Main";
-import useExcerciseOptions from "./Session/useExcerciseOptions";
+import Session from "./App/Session";
+import Main from "./App/Main";
+import useExcerciseOptions from "../hooks/useExcerciseOptions";
+import useAppState from "./App/appState";
 
 const App: React.FC = () => {
-    const [appState, setAppState] = useState<AppState>({
-        page: "main",
-        excercises: [],
-    });
+    const page = useAppState((state) => state.page);
+    const loadedExcercises = useAppState((state) => state.excercises);
+    const setExcercises = useAppState((state) => state.setExcercises);
     const { excercises, isLoading } = useExcerciseOptions();
 
-    const setPage = (page: PageOption) => {
-        setAppState((prev) => ({ ...prev, page }));
-    };
-
-    const setExcercises = (excercises: Excercise[]) => {
-        setAppState((prev) => ({ ...prev, excercises }));
-    };
-
     useEffect(() => {
-        if (appState.excercises.length === 0 && excercises.length > 0) {
+        if (loadedExcercises.length === 0 && excercises.length > 0) {
             setExcercises(excercises);
         }
     }, [excercises]);
@@ -29,17 +20,8 @@ const App: React.FC = () => {
 
     return (
         <div>
-            <AppContext.Provider
-                value={{
-                    page: appState.page,
-                    excercises: appState.excercises,
-                    setPage,
-                    setExcercises,
-                }}
-            >
-                {appState.page === "main" && <Main />}
-                {appState.page === "session" && <Session />}
-            </AppContext.Provider>
+            {page === "main" && <Main />}
+            {page === "session" && <Session />}
         </div>
     );
 };

@@ -6,8 +6,10 @@
     "esbuild": "0.19.6"
   },
   "dependencies": {
+    "immer": "^10.0.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "zustand": "^4.4.7"
   },
   "scripts": {
     "build": "./build.sh"

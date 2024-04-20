@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
-import AppContext from "./AppContext";
+import useAppState from "./appState";
 
 const Main: React.FC = () => {
-    const context = useContext(AppContext);
+    const setPage = useAppState((state) => state.setPage);
 
     return (
         <div>
             <h1>Main page</h1>
-            <div onClick={() => context.setPage("session")} className="main-page__new-session">
+            <div onClick={() => setPage("session")} className="main-page__new-session">
                 Click
             </div>
         </div>

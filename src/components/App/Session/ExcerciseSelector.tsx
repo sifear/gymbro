@@ -1,6 +1,5 @@
 import React, { forwardRef, useContext, useEffect, useRef, useState } from "react";
-import useExcerciseOptions from "./useExcerciseOptions";
-import AppContext from "../AppContext";
+import useAppState from "../appState";
 
 interface Props {
     onDrawerInDOM: () => void;
@@ -9,7 +8,8 @@ interface Props {
 const ExcerciseSelector = forwardRef<HTMLDivElement, Props>((props, ref) => {
     const { onDrawerInDOM } = props;
     const [putIntoDOM, setPutIntoDOM] = useState(false);
-    const { excercises } = useContext(AppContext);
+    const excercises = useAppState((state) => state.excercises);
+    const toggleMarkExcercise = useAppState((state) => state.toggleMarkExcercise);
 
     useEffect(() => {
         if (putIntoDOM) {
@@ -23,13 +23,17 @@ const ExcerciseSelector = forwardRef<HTMLDivElement, Props>((props, ref) => {
         }
     }, []);
 
+    const onChange = (exc: Excercise) => {
+        toggleMarkExcercise(exc)
+    };
+
     return (
         <div className="excercise-selector__container" ref={ref}>
             <div className="excercise-selector">
                 <div className="excercise-selector__list">
                     {excercises.map((exc) => (
                         <div className="excercise-selector__list-element" key={exc.id}>
-                            <input id={`excercise_${exc.id}`} type="checkbox" />
+                            <input id={`excercise_${exc.id}`} type="checkbox" onChange={(_) => onChange(exc)} />
                             <label id={`excercise_label_${exc.id}`} htmlFor={`excercise_${exc.id}`}>
                                 {exc.name}
                             </label>

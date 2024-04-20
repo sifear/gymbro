@@ -1,17 +1,19 @@
-
-type AppState = {
-    page: PageOption;
-    excercises: Excercise[]
-}
-
-type AppStateSetters = {
-    setPage: (page: PageOption) => void,
-    setExcercises: (excercises: Excercise[]) => void
-}
-
-type PageOption = 'main' | "session"
-
 type Excercise = {
-    id: number,
-    name: string
+    id: number;
+    name: string;
+};
+
+type ExcerciseSet = {
+    position: number,
+    reps: number,
+    resistance: number,
 }
+
+interface MeasuredExcercise extends Excercise {
+    position: number;
+    sets: ExcerciseSet[]
+}
+
+type Session = {
+    excercises: MeasuredExcercise[];
+};
