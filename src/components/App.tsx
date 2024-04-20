@@ -1,28 +1,18 @@
-import React, { useEffect, useState } from "react";
-import Session from "./App/Session";
-import Main from "./App/Main";
+import React, { useEffect, useRef, useState } from "react";
 import useExcerciseOptions from "../hooks/useExcerciseOptions";
 import useAppState from "./App/appState";
+import Session from "./App/Session/Session";
+import Main from "./App/Main/Main";
 
 const App: React.FC = () => {
+    const mainRef = useRef<HTMLDivElement>(null)
     const page = useAppState((state) => state.page);
-    const loadedExcercises = useAppState((state) => state.excercises);
-    const setExcercises = useAppState((state) => state.setExcercises);
-    const { excercises, isLoading } = useExcerciseOptions();
-
-    useEffect(() => {
-        if (loadedExcercises.length === 0 && excercises.length > 0) {
-            setExcercises(excercises);
-        }
-    }, [excercises]);
-
-    if (!excercises) return null;
 
     return (
-        <div>
-            {page === "main" && <Main />}
-            {page === "session" && <Session />}
-        </div>
+        <>
+            <Main mainRef={mainRef} />
+            {page === "session" && <Session backplateRef={mainRef}/>}
+        </>
     );
 };
 

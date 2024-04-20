@@ -1,0 +1,57 @@
+.drawer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    bottom: 0;
+    background-color: transparent;
+    transition: background-color 0.5s cubic-bezier(0, 0.97, 0.02, 0.94);
+}
+
+.drawer.open {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.drawer__content {
+    position: fixed;
+    width: 100%;
+    transition: bottom 0.2s ease-in;
+    background-color: rgb(188, 133, 255);
+}
+
+.drawer__content.low {
+    height: 25%;
+    bottom: -25vh;
+}
+
+.drawer__content.middle {
+    height: 50%;
+    bottom: -100vh;
+}
+
+.drawer__content.high {
+    height: 75%;
+    bottom: -25vh;
+}
+
+.drawer__content.open.low {
+    bottom: 0;
+}
+
+.drawer__content.open.middle {
+    bottom: -50vh;
+}
+
+.drawer__content.open.high {
+    bottom: -100vh;
+}
+
+/* Backplate */
+
+.drawer-backplate {
+    transition: transform 0.5s cubic-bezier(0, 0.97, 0.02, 0.94);
+}
+
+.drawer-backplate.blurred {
+    border-radius: 5px;
+    transform: scaleX(0.97) scaleY(0.98);
+}

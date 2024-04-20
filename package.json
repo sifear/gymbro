@@ -12,7 +12,8 @@
     "zustand": "^4.4.7"
   },
   "scripts": {
-    "build": "./build.sh"
+    "build": "./build.sh",
+    "watch": "./node_modules/.bin/esbuild ./src/init.tsx --bundle --outfile=./dist/app/init.js --watch"
   },
   "prettier": {
     "tabWidth": 4,

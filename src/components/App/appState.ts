@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { produce } from "immer";
 
-type PageOption = "main" | "session";
+type PageOption = null | "session";
 
 interface AppState {
     page: PageOption;
@@ -16,18 +16,16 @@ interface AppState {
 }
 
 const simultedState: Pick<AppState, "page" | "session"> = {
-    page: "session",
+    page: null,
     session: {
         excercises: [{ id: 1, name: "Bench press", position: 0, sets: [{ position: 0, reps: 2, resistance: 0 }] }],
     },
 };
 
 const useAppState = create<AppState>((set, get) => ({
-    page: "main",
     excercises: [],
-    session: null,
     markedExcercises: [],
-    ...simultedState, 
+    ...simultedState,
     createSession: () =>
         set(
             produce<AppState>((state) => {
@@ -37,10 +35,7 @@ const useAppState = create<AppState>((set, get) => ({
     setPage: (page) =>
         set(
             produce<AppState>((state) => {
-                if (page === "session") {
-                    state.page = page;
-                    state.session = { excercises: [] };
-                }
+                state.page = page;
             })
         ),
     setExcercises: (excercises) =>
