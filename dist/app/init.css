@@ -1,8 +1,22 @@
 /* src/components/App/Session/Session.css */
 .session__main {
   height: 100%;
+  width: 100%;
   position: fixed;
   top: 0;
+}
+.session__content {
+  display: flex;
+  justify-content: center;
+}
+.session__content__add_new {
+  width: 90%;
+  height: 2rem;
+  border-radius: 5px;
+  background-color: aquamarine;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* src/components/ui/Drawer/Drawer.css */
@@ -35,14 +49,12 @@
   height: 75%;
   bottom: -25vh;
 }
-.drawer__content.open.low {
+.drawer__content.full {
+  height: 98%;
+  bottom: -98vh;
+}
+.drawer__content.open {
   bottom: 0;
-}
-.drawer__content.open.middle {
-  bottom: -50vh;
-}
-.drawer__content.open.high {
-  bottom: -100vh;
 }
 .drawer-backplate {
   transition: transform 0.5s cubic-bezier(0, 0.97, 0.02, 0.94);
@@ -86,4 +98,5 @@
 body {
   margin: 0;
   background-color: rgb(126, 126, 126);
+  overflow: hidden;
 }

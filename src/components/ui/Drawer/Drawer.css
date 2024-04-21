@@ -33,16 +33,13 @@
     bottom: -25vh;
 }
 
-.drawer__content.open.low {
+.drawer__content.full {
+    height: 98%;
+    bottom: -98vh;
+}
+
+.drawer__content.open {
     bottom: 0;
-}
-
-.drawer__content.open.middle {
-    bottom: -50vh;
-}
-
-.drawer__content.open.high {
-    bottom: -100vh;
 }
 
 /* Backplate */

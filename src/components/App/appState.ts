@@ -13,12 +13,13 @@ interface AppState {
     createSession: () => void;
     toggleMarkExcercise: (excercise: Excercise) => void;
     addMarkedToSession: () => void;
+    // addNewExcercise: () => void
 }
 
 const simultedState: Pick<AppState, "page" | "session"> = {
     page: null,
     session: {
-        excercises: [{ id: 1, name: "Bench press", position: 0, sets: [{ position: 0, reps: 2, resistance: 0 }] }],
+        excercises: [],
     },
 };
 

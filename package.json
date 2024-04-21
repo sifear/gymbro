@@ -16,7 +16,7 @@
     "watch": "./node_modules/.bin/esbuild ./src/init.tsx --bundle --outfile=./dist/app/init.js --watch"
   },
   "prettier": {
-    "tabWidth": 4,
-    "printWidth": 130
+    "tabWidth": 3,
+    "printWidth": 80
   }
 }

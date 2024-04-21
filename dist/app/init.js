@@ -1085,7 +1085,7 @@
             }
             return dispatcher.useContext(Context);
           }
-          function useState4(initialState) {
+          function useState5(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
@@ -1093,7 +1093,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useReducer(reducer, initialArg, init);
           }
-          function useRef3(initialValue) {
+          function useRef4(initialValue) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
@@ -1886,8 +1886,8 @@
           exports.useLayoutEffect = useLayoutEffect;
           exports.useMemo = useMemo;
           exports.useReducer = useReducer;
-          exports.useRef = useRef3;
-          exports.useState = useState4;
+          exports.useRef = useRef4;
+          exports.useState = useState5;
           exports.useSyncExternalStore = useSyncExternalStore2;
           exports.useTransition = useTransition;
           exports.version = ReactVersion;
@@ -23549,7 +23549,7 @@
             return x === y && (x !== 0 || 1 / x === 1 / y) || x !== x && y !== y;
           }
           var objectIs = typeof Object.is === "function" ? Object.is : is2;
-          var useState4 = React8.useState, useEffect3 = React8.useEffect, useLayoutEffect = React8.useLayoutEffect, useDebugValue2 = React8.useDebugValue;
+          var useState5 = React8.useState, useEffect3 = React8.useEffect, useLayoutEffect = React8.useLayoutEffect, useDebugValue2 = React8.useDebugValue;
           var didWarnOld18Alpha = false;
           var didWarnUncachedGetSnapshot = false;
           function useSyncExternalStore2(subscribe, getSnapshot, getServerSnapshot) {
@@ -23571,7 +23571,7 @@
                 }
               }
             }
-            var _useState = useState4({
+            var _useState = useState5({
               inst: {
                 value,
                 getSnapshot
@@ -23659,9 +23659,9 @@
           }
           var objectIs = typeof Object.is === "function" ? Object.is : is2;
           var useSyncExternalStore2 = shim.useSyncExternalStore;
-          var useRef3 = React8.useRef, useEffect3 = React8.useEffect, useMemo = React8.useMemo, useDebugValue2 = React8.useDebugValue;
+          var useRef4 = React8.useRef, useEffect3 = React8.useEffect, useMemo = React8.useMemo, useDebugValue2 = React8.useDebugValue;
           function useSyncExternalStoreWithSelector2(subscribe, getSnapshot, getServerSnapshot, selector, isEqual) {
-            var instRef = useRef3(null);
+            var instRef = useRef4(null);
             var inst;
             if (instRef.current === null) {
               inst = {
@@ -24492,7 +24492,7 @@
   var simultedState = {
     page: null,
     session: {
-      excercises: [{ id: 1, name: "Bench press", position: 0, sets: [{ position: 0, reps: 2, resistance: 0 }] }]
+      excercises: []
     }
   };
   var useAppState = create((set2, get) => ({
@@ -24544,7 +24544,12 @@
 
   // src/components/ui/Drawer/Drawer.tsx
   var import_react2 = __toESM(require_react());
-  var Drawer = ({ backplateRef, height = "full", onRetract }) => {
+  var Drawer = ({
+    backplateRef,
+    height = "full",
+    onRetract,
+    children
+  }) => {
     const ref = (0, import_react2.useRef)(null);
     const [open, setOpen] = (0, import_react2.useState)(false);
     (0, import_react2.useEffect)(() => {
@@ -24555,21 +24560,56 @@
         }
       }
     }, []);
-    const closeDrawer = () => {
+    const onBack = () => {
       setOpen(false);
       backplateRef.current?.classList.remove("blurred");
       setTimeout(() => {
         onRetract();
       }, 200);
     };
-    return /* @__PURE__ */ import_react2.default.createElement("div", { className: `drawer  ${open && "open"}` }, /* @__PURE__ */ import_react2.default.createElement("div", { ref, className: `drawer__content ${height} ${open && "open"}` }, /* @__PURE__ */ import_react2.default.createElement("button", { onClick: closeDrawer }, "Close")));
+    return /* @__PURE__ */ import_react2.default.createElement("div", { className: `drawer  ${open && "open"}` }, /* @__PURE__ */ import_react2.default.createElement(
+      "div",
+      {
+        ref,
+        className: `drawer__content ${height} ${open && "open"}`
+      },
+      children
+    ));
   };
   var Drawer_default = Drawer;
 
   // src/components/App/Session/Session.tsx
   var Session = ({ backplateRef }) => {
+    const backplate = (0, import_react3.useRef)(null);
+    const [newExcerciseOpen, setNewExcerciseOpen] = (0, import_react3.useState)(false);
     const setPage = appState_default((state) => state.setPage);
-    return /* @__PURE__ */ import_react3.default.createElement("div", { className: "session__main" }, /* @__PURE__ */ import_react3.default.createElement(Drawer_default, { backplateRef, onRetract: () => setPage(null), height: "low" }));
+    const openAddNewDrawer = () => {
+    };
+    return /* @__PURE__ */ import_react3.default.createElement("div", { className: `session__main drawer-backplate ${newExcerciseOpen && "blurred"}` }, /* @__PURE__ */ import_react3.default.createElement(
+      Drawer_default,
+      {
+        backplateRef,
+        onRetract: () => setPage(null),
+        height: "full"
+      },
+      /* @__PURE__ */ import_react3.default.createElement("div", { className: `session__content`, ref: backplate }, /* @__PURE__ */ import_react3.default.createElement(
+        "div",
+        {
+          className: "session__content__add_new",
+          onClick: () => setNewExcerciseOpen(true)
+        },
+        "Add new excercise"
+      ), newExcerciseOpen && /* @__PURE__ */ import_react3.default.createElement(
+        Drawer_default,
+        {
+          height: "low",
+          backplateRef: backplate,
+          onRetract: () => {
+          }
+        },
+        "Add new stuff here"
+      ))
+    ));
   };
   var Session_default = Session;
 
