@@ -1,0 +1,8 @@
+.measured-excercise {
+   display: flex;
+   direction: column;
+}
+
+.measured-excercise__set {
+   display: flex;
+}

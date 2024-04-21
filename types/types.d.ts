@@ -1,19 +1,22 @@
 type Excercise = {
-    id: number;
-    name: string;
+   id: number;
+   name: string;
 };
 
 type ExcerciseSet = {
-    position: number,
-    reps: number,
-    resistance: number,
-}
+   id: number;
+   position: number;
+   reps: string;
+   resistance: string;
+};
 
 interface MeasuredExcercise extends Excercise {
-    position: number;
-    sets: ExcerciseSet[]
+   position: number;
+   sets: ExcerciseSet[];
 }
 
 type Session = {
-    excercises: MeasuredExcercise[];
+   start: Date | null;
+   end: Date | null;
+   excercises: MeasuredExcercise[];
 };

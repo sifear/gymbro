@@ -1,4 +1,4 @@
-.session__main {
+.session {
     height: 100%;
     width: 100%;
     position: fixed;
@@ -10,7 +10,7 @@
     justify-content: center;
 }
 
-.session__content__add_new {
+.session__content__btn {
     width: 90%;
     height: 2rem;
     border-radius: 5px;

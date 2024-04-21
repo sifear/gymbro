@@ -5,15 +5,22 @@ import Session from "./App/Session/Session";
 import Main from "./App/Main/Main";
 
 const App: React.FC = () => {
-    const mainRef = useRef<HTMLDivElement>(null)
-    const page = useAppState((state) => state.page);
+   const page = useAppState((state) => state.page);
+   const idb = useAppState((state) => state.idb);
+   const initIdb = useAppState((state) => state.initIdb);
 
-    return (
-        <>
-            <Main mainRef={mainRef} />
-            {page === "session" && <Session backplateRef={mainRef}/>}
-        </>
-    );
+   useEffect(() => {
+      initIdb();
+   }, []);
+
+   if (!idb) return <div>Loading...</div>
+
+   return (
+      <>
+         <Main />
+         {page === "session" && <Session />}
+      </>
+   );
 };
 
 export default App;

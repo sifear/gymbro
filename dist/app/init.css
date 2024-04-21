@@ -1,5 +1,5 @@
 /* src/components/App/Session/Session.css */
-.session__main {
+.session {
   height: 100%;
   width: 100%;
   position: fixed;
@@ -9,7 +9,7 @@
   display: flex;
   justify-content: center;
 }
-.session__content__add_new {
+.session__content__btn {
   width: 90%;
   height: 2rem;
   border-radius: 5px;
@@ -56,13 +56,6 @@
 .drawer__content.open {
   bottom: 0;
 }
-.drawer-backplate {
-  transition: transform 0.5s cubic-bezier(0, 0.97, 0.02, 0.94);
-}
-.drawer-backplate.blurred {
-  border-radius: 5px;
-  transform: scaleX(0.97) scaleY(0.98);
-}
 
 /* src/components/ui/ThumbButton/ThumbButton.css */
 .thumb-button {
@@ -78,20 +71,17 @@
 
 /* src/components/App/Main/Main.css */
 .main {
-  position: relative;
-  height: 100vh;
-  background-color: rgb(230, 255, 223);
-}
-.main__content {
   position: fixed;
-  top: 0;
   height: 100vh;
   width: 100%;
+  background-color: rgb(230, 255, 223);
+  top: 0;
 }
 .main__children {
   position: fixed;
   top: 0;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
 }
 
 /* src/reset.css */

@@ -4,20 +4,19 @@ import "./Main.css";
 import useAppState from "../appState";
 
 interface Props {
-    mainRef: React.MutableRefObject<HTMLDivElement | null>
+   children?: React.ReactNode;
 }
 
-const Main: React.FC<Props> = ({mainRef}) => {
-    const page = useAppState((state) => state.page);
+const Main: React.FC<Props> = ({ children }) => {
+   const page = useAppState((state) => state.page);
 
-    return (
-        <div ref={mainRef} className={`main drawer-backplate`}>
-            <div className="main__content">
-                <div>Main page</div>
-                <StartButton />
-            </div>
-        </div>
-    );
+   return (
+      <div className={`main`}>
+         <div>Main page</div>
+         <div className="main__children">{children}</div>
+         <StartButton />
+      </div>
+   );
 };
 
 export default Main;

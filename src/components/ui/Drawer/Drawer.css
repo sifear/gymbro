@@ -41,14 +41,3 @@
 .drawer__content.open {
     bottom: 0;
 }
-
-/* Backplate */
-
-.drawer-backplate {
-    transition: transform 0.5s cubic-bezier(0, 0.97, 0.02, 0.94);
-}
-
-.drawer-backplate.blurred {
-    border-radius: 5px;
-    transform: scaleX(0.97) scaleY(0.98);
-}

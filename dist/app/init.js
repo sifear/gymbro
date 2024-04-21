@@ -1093,11 +1093,11 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useReducer(reducer, initialArg, init);
           }
-          function useRef4(initialValue) {
+          function useRef6(initialValue) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect3(create2, deps) {
+          function useEffect5(create2, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create2, deps);
           }
@@ -1879,14 +1879,14 @@
           exports.useContext = useContext2;
           exports.useDebugValue = useDebugValue2;
           exports.useDeferredValue = useDeferredValue;
-          exports.useEffect = useEffect3;
+          exports.useEffect = useEffect5;
           exports.useId = useId;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useInsertionEffect = useInsertionEffect;
           exports.useLayoutEffect = useLayoutEffect;
           exports.useMemo = useMemo;
           exports.useReducer = useReducer;
-          exports.useRef = useRef4;
+          exports.useRef = useRef6;
           exports.useState = useState5;
           exports.useSyncExternalStore = useSyncExternalStore2;
           exports.useTransition = useTransition;
@@ -2383,9 +2383,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React8 = require_react();
+          var React11 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React8.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React11.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -3990,7 +3990,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React8.Children.forEach(props.children, function(child) {
+                  React11.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -12437,7 +12437,7 @@
             }
           }
           var fakeInternalInstance = {};
-          var emptyRefsObject = new React8.Component().refs;
+          var emptyRefsObject = new React11.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -23518,8 +23518,8 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React8 = require_react();
-          var ReactSharedInternals = React8.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var React11 = require_react();
+          var ReactSharedInternals = React11.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format) {
             {
               {
@@ -23549,13 +23549,13 @@
             return x === y && (x !== 0 || 1 / x === 1 / y) || x !== x && y !== y;
           }
           var objectIs = typeof Object.is === "function" ? Object.is : is2;
-          var useState5 = React8.useState, useEffect3 = React8.useEffect, useLayoutEffect = React8.useLayoutEffect, useDebugValue2 = React8.useDebugValue;
+          var useState5 = React11.useState, useEffect5 = React11.useEffect, useLayoutEffect = React11.useLayoutEffect, useDebugValue2 = React11.useDebugValue;
           var didWarnOld18Alpha = false;
           var didWarnUncachedGetSnapshot = false;
           function useSyncExternalStore2(subscribe, getSnapshot, getServerSnapshot) {
             {
               if (!didWarnOld18Alpha) {
-                if (React8.startTransition !== void 0) {
+                if (React11.startTransition !== void 0) {
                   didWarnOld18Alpha = true;
                   error("You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release.");
                 }
@@ -23586,7 +23586,7 @@
                 });
               }
             }, [subscribe, value, getSnapshot]);
-            useEffect3(function() {
+            useEffect5(function() {
               if (checkIfSnapshotChanged(inst)) {
                 forceUpdate({
                   inst
@@ -23620,7 +23620,7 @@
           var canUseDOM = !!(typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined");
           var isServerEnvironment = !canUseDOM;
           var shim = isServerEnvironment ? useSyncExternalStore$1 : useSyncExternalStore2;
-          var useSyncExternalStore$2 = React8.useSyncExternalStore !== void 0 ? React8.useSyncExternalStore : shim;
+          var useSyncExternalStore$2 = React11.useSyncExternalStore !== void 0 ? React11.useSyncExternalStore : shim;
           exports.useSyncExternalStore = useSyncExternalStore$2;
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
@@ -23652,16 +23652,16 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React8 = require_react();
+          var React11 = require_react();
           var shim = require_shim();
           function is2(x, y) {
             return x === y && (x !== 0 || 1 / x === 1 / y) || x !== x && y !== y;
           }
           var objectIs = typeof Object.is === "function" ? Object.is : is2;
           var useSyncExternalStore2 = shim.useSyncExternalStore;
-          var useRef4 = React8.useRef, useEffect3 = React8.useEffect, useMemo = React8.useMemo, useDebugValue2 = React8.useDebugValue;
+          var useRef6 = React11.useRef, useEffect5 = React11.useEffect, useMemo = React11.useMemo, useDebugValue2 = React11.useDebugValue;
           function useSyncExternalStoreWithSelector2(subscribe, getSnapshot, getServerSnapshot, selector, isEqual) {
-            var instRef = useRef4(null);
+            var instRef = useRef6(null);
             var inst;
             if (instRef.current === null) {
               inst = {
@@ -23716,7 +23716,7 @@
               return [getSnapshotWithSelector, getServerSnapshotWithSelector];
             }, [getSnapshot, getServerSnapshot, selector, isEqual]), getSelection = _useMemo[0], getServerSelection = _useMemo[1];
             var value = useSyncExternalStore2(subscribe, getSelection, getServerSelection);
-            useEffect3(function() {
+            useEffect5(function() {
               inst.hasValue = true;
               inst.value = value;
             }, [value]);
@@ -23745,11 +23745,11 @@
   });
 
   // src/init.tsx
-  var import_react8 = __toESM(require_react());
+  var import_react11 = __toESM(require_react());
   var import_client = __toESM(require_client());
 
   // src/components/App.tsx
-  var import_react7 = __toESM(require_react());
+  var import_react10 = __toESM(require_react());
 
   // node_modules/zustand/esm/vanilla.mjs
   var import_meta = {};
@@ -24490,18 +24490,27 @@
 
   // src/components/App/appState.ts
   var simultedState = {
-    page: null,
-    session: {
-      excercises: []
-    }
+    page: "session"
   };
   var useAppState = create((set2, get) => ({
+    idb: null,
     excercises: [],
     markedExcercises: [],
+    session: null,
     ...simultedState,
+    initIdb: async () => {
+      const db = await initDatabase();
+      const excs = await loadExcercises(db);
+      set2(
+        produce((state) => {
+          state.idb = db;
+          state.excercises = excs;
+        })
+      );
+    },
     createSession: () => set2(
       produce((state) => {
-        state.session = { excercises: [] };
+        state.session = { excercises: [], start: /* @__PURE__ */ new Date(), end: null };
       })
     ),
     setPage: (page) => set2(
@@ -24514,10 +24523,21 @@
         state.excercises = excercises;
       })
     ),
+    addToSession: (excercise) => set2(
+      produce((state) => {
+        state.session?.excercises.push({
+          ...excercise,
+          position: 0,
+          sets: [{ id: 0, position: 0, reps: "0", resistance: "0" }]
+        });
+      })
+    ),
     toggleMarkExcercise: (excercise) => set2(
       produce((state) => {
         if (state.markedExcercises.find((me) => me.id === excercise.id)) {
-          state.markedExcercises = state.markedExcercises.filter((me) => me.id !== excercise.id);
+          state.markedExcercises = state.markedExcercises.filter(
+            (me) => me.id !== excercise.id
+          );
         } else {
           state.markedExcercises.push(excercise);
         }
@@ -24530,44 +24550,77 @@
           state.session.excercises.push({
             ...markedExcercise,
             position,
-            sets: [{ position: 0, reps: 0, resistance: 0 }]
+            sets: [{ id: 0, position: 0, reps: "0", resistance: "0" }]
           });
         }
         state.markedExcercises = [];
       })
+    ),
+    addNewExcercise: (excercise) => set2(
+      produce((state) => {
+        state.excercises.push(excercise);
+      })
     )
   }));
   var appState_default = useAppState;
+  var initDatabase = () => {
+    return new Promise((resolve, reject) => {
+      const request = window.indexedDB.open("gymbro", 1);
+      request.onupgradeneeded = (event) => {
+        const db = event.target.result;
+        const objectStore = db.createObjectStore("excercises", {
+          keyPath: "name"
+        });
+        objectStore.createIndex("excercise_name_idx", "name", {
+          unique: true
+        });
+        resolve(db);
+      };
+      request.onerror = (event) => {
+        console.log(event);
+        reject();
+      };
+      request.onsuccess = (event) => {
+        const db = event.target.result;
+        resolve(db);
+      };
+    });
+  };
+  var loadExcercises = (idb) => {
+    return new Promise((resolve, reject) => {
+      const transaction = idb.transaction(["excercises"], "readonly");
+      const objectStore = transaction.objectStore("excercises");
+      const request = objectStore.getAll();
+      request.onsuccess = (event) => {
+        resolve(request.result);
+      };
+      request.onerror = (event) => {
+        console.log(request.error);
+        reject();
+      };
+    });
+  };
 
   // src/components/App/Session/Session.tsx
-  var import_react3 = __toESM(require_react());
+  var import_react6 = __toESM(require_react());
 
   // src/components/ui/Drawer/Drawer.tsx
   var import_react2 = __toESM(require_react());
-  var Drawer = ({
-    backplateRef,
-    height = "full",
-    onRetract,
-    children
-  }) => {
+  var Drawer = ({ height = "full", onRetract, children }) => {
     const ref = (0, import_react2.useRef)(null);
     const [open, setOpen] = (0, import_react2.useState)(false);
     (0, import_react2.useEffect)(() => {
       if (!open) {
         setOpen(true);
-        if (backplateRef.current) {
-          backplateRef.current.classList.add("blurred");
-        }
       }
     }, []);
     const onBack = () => {
       setOpen(false);
-      backplateRef.current?.classList.remove("blurred");
       setTimeout(() => {
         onRetract();
       }, 200);
     };
-    return /* @__PURE__ */ import_react2.default.createElement("div", { className: `drawer  ${open && "open"}` }, /* @__PURE__ */ import_react2.default.createElement(
+    return /* @__PURE__ */ import_react2.default.createElement("div", { className: `drawer ${open && "open"}` }, /* @__PURE__ */ import_react2.default.createElement(
       "div",
       {
         ref,
@@ -24578,73 +24631,104 @@
   };
   var Drawer_default = Drawer;
 
-  // src/components/App/Session/Session.tsx
-  var Session = ({ backplateRef }) => {
-    const backplate = (0, import_react3.useRef)(null);
-    const [newExcerciseOpen, setNewExcerciseOpen] = (0, import_react3.useState)(false);
-    const setPage = appState_default((state) => state.setPage);
-    const openAddNewDrawer = () => {
+  // src/components/App/Session/AddNew/AddNew.tsx
+  var import_react3 = __toESM(require_react());
+  var AddNew = () => {
+    const nameRef = (0, import_react3.useRef)(null);
+    const idb = appState_default((state) => state.idb);
+    const addExcercise = () => {
+      const transaction = idb.transaction(["excercises"], "readwrite");
+      transaction.oncomplete = (event) => {
+        console.log(event);
+      };
+      const objectStore = transaction.objectStore("excercises");
+      objectStore.add(
+        { id: nameRef.current.value, name: nameRef.current.value }
+      );
     };
-    return /* @__PURE__ */ import_react3.default.createElement("div", { className: `session__main drawer-backplate ${newExcerciseOpen && "blurred"}` }, /* @__PURE__ */ import_react3.default.createElement(
-      Drawer_default,
-      {
-        backplateRef,
-        onRetract: () => setPage(null),
-        height: "full"
-      },
-      /* @__PURE__ */ import_react3.default.createElement("div", { className: `session__content`, ref: backplate }, /* @__PURE__ */ import_react3.default.createElement(
-        "div",
-        {
-          className: "session__content__add_new",
-          onClick: () => setNewExcerciseOpen(true)
-        },
-        "Add new excercise"
-      ), newExcerciseOpen && /* @__PURE__ */ import_react3.default.createElement(
-        Drawer_default,
-        {
-          height: "low",
-          backplateRef: backplate,
-          onRetract: () => {
-          }
-        },
-        "Add new stuff here"
-      ))
-    ));
+    return /* @__PURE__ */ import_react3.default.createElement("div", null, /* @__PURE__ */ import_react3.default.createElement("label", { htmlFor: "name" }, "Excercise"), /* @__PURE__ */ import_react3.default.createElement("input", { ref: nameRef, type: "text", name: "name", id: "name" }), /* @__PURE__ */ import_react3.default.createElement("button", { onClick: addExcercise }, "Add"));
+  };
+  var AddNew_default = AddNew;
+
+  // src/components/App/Session/AddNew/Add.tsx
+  var import_react4 = __toESM(require_react());
+  var Add = ({ onClose }) => {
+    const excercises = appState_default((state) => state.excercises);
+    const addToSession = appState_default((state) => state.addToSession);
+    const _addToSession = (exc) => {
+      addToSession(exc);
+      onClose(false);
+    };
+    return /* @__PURE__ */ import_react4.default.createElement("div", null, excercises.map((exc) => /* @__PURE__ */ import_react4.default.createElement("div", { key: exc.id, onClick: () => _addToSession(exc) }, exc.name)));
+  };
+  var Add_default = Add;
+
+  // src/components/App/Session/MeasuredExcercise/MeasuredExcercise.tsx
+  var import_react5 = __toESM(require_react());
+  var MeasuredMexcercise = ({ mexc }) => {
+    return /* @__PURE__ */ import_react5.default.createElement("div", { key: mexc.id, className: "measured-excercise" }, /* @__PURE__ */ import_react5.default.createElement("div", null, mexc.name), /* @__PURE__ */ import_react5.default.createElement("div", null, mexc.sets.map((set2) => /* @__PURE__ */ import_react5.default.createElement("div", { key: set2.position, className: "measured-excercise__set" }, /* @__PURE__ */ import_react5.default.createElement("input", { type: "text", name: "resistance", id: `${mexc.id}_${set2.id}_resistance` }), /* @__PURE__ */ import_react5.default.createElement("input", { type: "text", name: "reps", id: `${mexc.id}_${set2.id}_reps` })))));
+  };
+  var MeasuredExcercise_default = MeasuredMexcercise;
+
+  // src/components/App/Session/Session.tsx
+  var Session = ({}) => {
+    const backplate = (0, import_react6.useRef)(null);
+    const [newExcerciseOpen, setNewExcerciseOpen] = (0, import_react6.useState)(false);
+    const [addExcerciseOpen, setAddExcerciseOpen] = (0, import_react6.useState)(false);
+    const setPage = appState_default((state) => state.setPage);
+    const session = appState_default((state) => state.session);
+    const createSession = appState_default((state) => state.createSession);
+    (0, import_react6.useEffect)(() => {
+      if (!session) {
+        createSession();
+      }
+    }, []);
+    if (!session)
+      return /* @__PURE__ */ import_react6.default.createElement("div", null, "Loading...");
+    return /* @__PURE__ */ import_react6.default.createElement(import_react6.default.Fragment, null, /* @__PURE__ */ import_react6.default.createElement("div", { className: `session` }, /* @__PURE__ */ import_react6.default.createElement(Drawer_default, { onRetract: () => setPage(null), height: "full" }, session.excercises.map((mexc) => /* @__PURE__ */ import_react6.default.createElement(MeasuredExcercise_default, { mexc })), /* @__PURE__ */ import_react6.default.createElement("div", { className: `session__content`, ref: backplate }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "session__content__btn", onClick: () => setNewExcerciseOpen(true) }, "Add new excercise"), /* @__PURE__ */ import_react6.default.createElement("div", { className: "session__content__btn", onClick: () => setAddExcerciseOpen(true) }, "Add excercise")))), newExcerciseOpen && /* @__PURE__ */ import_react6.default.createElement("div", null, /* @__PURE__ */ import_react6.default.createElement(Drawer_default, { height: "low", onRetract: () => {
+    } }, /* @__PURE__ */ import_react6.default.createElement(AddNew_default, null))), addExcerciseOpen && /* @__PURE__ */ import_react6.default.createElement("div", null, /* @__PURE__ */ import_react6.default.createElement(Drawer_default, { height: "low", onRetract: () => {
+    } }, /* @__PURE__ */ import_react6.default.createElement(Add_default, { onClose: setAddExcerciseOpen }))));
   };
   var Session_default = Session;
 
   // src/components/App/Main/Main.tsx
-  var import_react6 = __toESM(require_react());
+  var import_react9 = __toESM(require_react());
 
   // src/components/ui/StartButton.tsx
-  var import_react5 = __toESM(require_react());
+  var import_react8 = __toESM(require_react());
 
   // src/components/ui/ThumbButton/ThumbButton.tsx
-  var import_react4 = __toESM(require_react());
+  var import_react7 = __toESM(require_react());
   var ThumbButton = ({ onClick }) => {
-    return /* @__PURE__ */ import_react4.default.createElement("div", { className: "thumb-button", onClick });
+    return /* @__PURE__ */ import_react7.default.createElement("div", { className: "thumb-button", onClick });
   };
   var ThumbButton_default = ThumbButton;
 
   // src/components/ui/StartButton.tsx
   var StartButton = () => {
     const setPage = appState_default((state) => state.setPage);
-    return /* @__PURE__ */ import_react5.default.createElement(ThumbButton_default, { onClick: () => setPage("session") });
+    return /* @__PURE__ */ import_react8.default.createElement(ThumbButton_default, { onClick: () => setPage("session") });
   };
   var StartButton_default = StartButton;
 
   // src/components/App/Main/Main.tsx
-  var Main = ({ mainRef }) => {
+  var Main = ({ children }) => {
     const page = appState_default((state) => state.page);
-    return /* @__PURE__ */ import_react6.default.createElement("div", { ref: mainRef, className: `main drawer-backplate` }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "main__content" }, /* @__PURE__ */ import_react6.default.createElement("div", null, "Main page"), /* @__PURE__ */ import_react6.default.createElement(StartButton_default, null)));
+    return /* @__PURE__ */ import_react9.default.createElement("div", { className: `main` }, /* @__PURE__ */ import_react9.default.createElement("div", null, "Main page"), /* @__PURE__ */ import_react9.default.createElement("div", { className: "main__children" }, children), /* @__PURE__ */ import_react9.default.createElement(StartButton_default, null));
   };
   var Main_default = Main;
 
   // src/components/App.tsx
   var App = () => {
-    const mainRef = (0, import_react7.useRef)(null);
     const page = appState_default((state) => state.page);
-    return /* @__PURE__ */ import_react7.default.createElement(import_react7.default.Fragment, null, /* @__PURE__ */ import_react7.default.createElement(Main_default, { mainRef }), page === "session" && /* @__PURE__ */ import_react7.default.createElement(Session_default, { backplateRef: mainRef }));
+    const idb = appState_default((state) => state.idb);
+    const initIdb = appState_default((state) => state.initIdb);
+    (0, import_react10.useEffect)(() => {
+      initIdb();
+    }, []);
+    if (!idb)
+      return /* @__PURE__ */ import_react10.default.createElement("div", null, "Loading...");
+    return /* @__PURE__ */ import_react10.default.createElement(import_react10.default.Fragment, null, /* @__PURE__ */ import_react10.default.createElement(Main_default, null), page === "session" && /* @__PURE__ */ import_react10.default.createElement(Session_default, null));
   };
   var App_default = App;
 
@@ -24653,7 +24737,7 @@
   if (!appRoot)
     throw Error("Cannot find applicaiton root in html.");
   var root = (0, import_client.createRoot)(appRoot);
-  root.render(/* @__PURE__ */ import_react8.default.createElement(App_default, null));
+  root.render(/* @__PURE__ */ import_react11.default.createElement(App_default, null));
 })();
 /*! Bundled license information:
 

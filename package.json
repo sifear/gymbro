@@ -17,6 +17,6 @@
   },
   "prettier": {
     "tabWidth": 3,
-    "printWidth": 80
+    "printWidth": 100
   }
 }

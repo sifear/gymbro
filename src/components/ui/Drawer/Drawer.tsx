@@ -4,34 +4,23 @@ import "./Drawer.css";
 export type DrawerHeight = "low" | "middle" | "high" | "full";
 
 interface Props {
-   backplateRef: React.MutableRefObject<HTMLDivElement | null>;
    onRetract: () => void;
    height?: DrawerHeight;
    children?: React.ReactNode;
 }
 
-const Drawer: React.FC<Props> = ({
-   backplateRef,
-   height = "full",
-   onRetract,
-   children,
-}) => {
+const Drawer: React.FC<Props> = ({ height = "full", onRetract, children }) => {
    const ref = useRef<HTMLDivElement>(null);
    const [open, setOpen] = useState(false);
 
    useEffect(() => {
       if (!open) {
          setOpen(true);
-
-         if (backplateRef.current) {
-            backplateRef.current.classList.add("blurred");
-         }
       }
    }, []);
 
    const onBack = () => {
       setOpen(false);
-      backplateRef.current?.classList.remove("blurred");
 
       setTimeout(() => {
          onRetract();
@@ -39,7 +28,7 @@ const Drawer: React.FC<Props> = ({
    };
 
    return (
-      <div className={`drawer  ${open && "open"}`}>
+      <div className={`drawer ${open && "open"}`}>
          <div
             ref={ref}
             className={`drawer__content ${height} ${open && "open"}`}
