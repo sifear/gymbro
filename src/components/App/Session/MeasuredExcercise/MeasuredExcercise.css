@@ -1,8 +1,33 @@
 .measured-excercise {
+   width: 100%;
    display: flex;
-   direction: column;
+   flex-direction: column;
+   flex-wrap: nowrap;
+   gap: 0.5rem;
 }
 
-.measured-excercise__set {
+.measured-excercise__header-labels {
    display: flex;
+}
+
+.measured-excercise__header .input-label{
+   width: 58px;
+}
+
+.measured-excercise__header .input-label{
+   width: 58px;
+   display: flex;
+   justify-content: center;
+}
+
+.measured-excercise__set,
+.measured-excercise__header {
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
+   gap: 0.5rem;
+}
+
+.measured-excercise__set input {
+   width: 50px;
 }

@@ -3,9 +3,9 @@ import "./Session.css";
 import Drawer from "../../ui/Drawer/Drawer";
 import useAppState from "../appState";
 import AddNew from "./AddNew/AddNew";
-import Add from "./AddNew/Add";
-import MeasuredExcercise from "./MeasuredExcercise/MeasuredExcercise";
+import Add from "./Add/Add";
 import MeasuredMexcercise from "./MeasuredExcercise/MeasuredExcercise";
+import ExcerciseList from "./ExcerciseList/ExcerciseList";
 
 interface Props {}
 
@@ -29,9 +29,11 @@ const Session: React.FC<Props> = ({}) => {
       <>
          <div className={`session`}>
             <Drawer onRetract={() => setPage(null)} height="full">
-               {session.excercises.map((mexc) => (
-                  <MeasuredMexcercise mexc={mexc} />
-               ))}
+               <ExcerciseList>
+                  {session.excercises.map((mexc) => (
+                     <MeasuredMexcercise mexc={mexc} />
+                  ))}
+               </ExcerciseList>
                <div className={`session__content`} ref={backplate}>
                   <div className="session__content__btn" onClick={() => setNewExcerciseOpen(true)}>
                      Add new excercise

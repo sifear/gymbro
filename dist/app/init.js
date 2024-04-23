@@ -2383,9 +2383,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React11 = require_react();
+          var React12 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React11.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React12.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -3990,7 +3990,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React11.Children.forEach(props.children, function(child) {
+                  React12.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -12437,7 +12437,7 @@
             }
           }
           var fakeInternalInstance = {};
-          var emptyRefsObject = new React11.Component().refs;
+          var emptyRefsObject = new React12.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -23518,8 +23518,8 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React11 = require_react();
-          var ReactSharedInternals = React11.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var React12 = require_react();
+          var ReactSharedInternals = React12.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format) {
             {
               {
@@ -23549,13 +23549,13 @@
             return x === y && (x !== 0 || 1 / x === 1 / y) || x !== x && y !== y;
           }
           var objectIs = typeof Object.is === "function" ? Object.is : is2;
-          var useState5 = React11.useState, useEffect5 = React11.useEffect, useLayoutEffect = React11.useLayoutEffect, useDebugValue2 = React11.useDebugValue;
+          var useState5 = React12.useState, useEffect5 = React12.useEffect, useLayoutEffect = React12.useLayoutEffect, useDebugValue2 = React12.useDebugValue;
           var didWarnOld18Alpha = false;
           var didWarnUncachedGetSnapshot = false;
           function useSyncExternalStore2(subscribe, getSnapshot, getServerSnapshot) {
             {
               if (!didWarnOld18Alpha) {
-                if (React11.startTransition !== void 0) {
+                if (React12.startTransition !== void 0) {
                   didWarnOld18Alpha = true;
                   error("You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release.");
                 }
@@ -23620,7 +23620,7 @@
           var canUseDOM = !!(typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined");
           var isServerEnvironment = !canUseDOM;
           var shim = isServerEnvironment ? useSyncExternalStore$1 : useSyncExternalStore2;
-          var useSyncExternalStore$2 = React11.useSyncExternalStore !== void 0 ? React11.useSyncExternalStore : shim;
+          var useSyncExternalStore$2 = React12.useSyncExternalStore !== void 0 ? React12.useSyncExternalStore : shim;
           exports.useSyncExternalStore = useSyncExternalStore$2;
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
@@ -23652,14 +23652,14 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React11 = require_react();
+          var React12 = require_react();
           var shim = require_shim();
           function is2(x, y) {
             return x === y && (x !== 0 || 1 / x === 1 / y) || x !== x && y !== y;
           }
           var objectIs = typeof Object.is === "function" ? Object.is : is2;
           var useSyncExternalStore2 = shim.useSyncExternalStore;
-          var useRef6 = React11.useRef, useEffect5 = React11.useEffect, useMemo = React11.useMemo, useDebugValue2 = React11.useDebugValue;
+          var useRef6 = React12.useRef, useEffect5 = React12.useEffect, useMemo = React12.useMemo, useDebugValue2 = React12.useDebugValue;
           function useSyncExternalStoreWithSelector2(subscribe, getSnapshot, getServerSnapshot, selector, isEqual) {
             var instRef = useRef6(null);
             var inst;
@@ -23745,11 +23745,11 @@
   });
 
   // src/init.tsx
-  var import_react11 = __toESM(require_react());
+  var import_react12 = __toESM(require_react());
   var import_client = __toESM(require_client());
 
   // src/components/App.tsx
-  var import_react10 = __toESM(require_react());
+  var import_react11 = __toESM(require_react());
 
   // node_modules/zustand/esm/vanilla.mjs
   var import_meta = {};
@@ -24602,7 +24602,7 @@
   };
 
   // src/components/App/Session/Session.tsx
-  var import_react6 = __toESM(require_react());
+  var import_react7 = __toESM(require_react());
 
   // src/components/ui/Drawer/Drawer.tsx
   var import_react2 = __toESM(require_react());
@@ -24650,7 +24650,7 @@
   };
   var AddNew_default = AddNew;
 
-  // src/components/App/Session/AddNew/Add.tsx
+  // src/components/App/Session/Add/Add.tsx
   var import_react4 = __toESM(require_react());
   var Add = ({ onClose }) => {
     const excercises = appState_default((state) => state.excercises);
@@ -24666,55 +24666,62 @@
   // src/components/App/Session/MeasuredExcercise/MeasuredExcercise.tsx
   var import_react5 = __toESM(require_react());
   var MeasuredMexcercise = ({ mexc }) => {
-    return /* @__PURE__ */ import_react5.default.createElement("div", { key: mexc.id, className: "measured-excercise" }, /* @__PURE__ */ import_react5.default.createElement("div", null, mexc.name), /* @__PURE__ */ import_react5.default.createElement("div", null, mexc.sets.map((set2) => /* @__PURE__ */ import_react5.default.createElement("div", { key: set2.position, className: "measured-excercise__set" }, /* @__PURE__ */ import_react5.default.createElement("input", { type: "text", name: "resistance", id: `${mexc.id}_${set2.id}_resistance` }), /* @__PURE__ */ import_react5.default.createElement("input", { type: "text", name: "reps", id: `${mexc.id}_${set2.id}_reps` })))));
+    return /* @__PURE__ */ import_react5.default.createElement("div", { key: mexc.id, className: "measured-excercise" }, /* @__PURE__ */ import_react5.default.createElement("div", null, mexc.name), /* @__PURE__ */ import_react5.default.createElement("div", { className: "measured-excercise__header" }, /* @__PURE__ */ import_react5.default.createElement("div", null, "Set"), /* @__PURE__ */ import_react5.default.createElement("div", { className: "measured-excercise__header-labels" }, /* @__PURE__ */ import_react5.default.createElement("div", { className: "input-label" }, "Weight"), /* @__PURE__ */ import_react5.default.createElement("div", { className: "input-label" }, "Reps"))), mexc.sets.map((set2, i) => /* @__PURE__ */ import_react5.default.createElement("div", { key: set2.position, className: "measured-excercise__set" }, /* @__PURE__ */ import_react5.default.createElement("div", null, i, "."), /* @__PURE__ */ import_react5.default.createElement("div", null, /* @__PURE__ */ import_react5.default.createElement("input", { type: "text", name: "resistance", id: `${mexc.id}_${set2.id}_resistance` }), /* @__PURE__ */ import_react5.default.createElement("input", { type: "text", name: "reps", id: `${mexc.id}_${set2.id}_reps` })))));
   };
   var MeasuredExcercise_default = MeasuredMexcercise;
 
+  // src/components/App/Session/ExcerciseList/ExcerciseList.tsx
+  var import_react6 = __toESM(require_react());
+  var ExcerciseList = ({ children }) => {
+    return /* @__PURE__ */ import_react6.default.createElement("div", { className: "session__excercise-list" }, children);
+  };
+  var ExcerciseList_default = ExcerciseList;
+
   // src/components/App/Session/Session.tsx
   var Session = ({}) => {
-    const backplate = (0, import_react6.useRef)(null);
-    const [newExcerciseOpen, setNewExcerciseOpen] = (0, import_react6.useState)(false);
-    const [addExcerciseOpen, setAddExcerciseOpen] = (0, import_react6.useState)(false);
+    const backplate = (0, import_react7.useRef)(null);
+    const [newExcerciseOpen, setNewExcerciseOpen] = (0, import_react7.useState)(false);
+    const [addExcerciseOpen, setAddExcerciseOpen] = (0, import_react7.useState)(false);
     const setPage = appState_default((state) => state.setPage);
     const session = appState_default((state) => state.session);
     const createSession = appState_default((state) => state.createSession);
-    (0, import_react6.useEffect)(() => {
+    (0, import_react7.useEffect)(() => {
       if (!session) {
         createSession();
       }
     }, []);
     if (!session)
-      return /* @__PURE__ */ import_react6.default.createElement("div", null, "Loading...");
-    return /* @__PURE__ */ import_react6.default.createElement(import_react6.default.Fragment, null, /* @__PURE__ */ import_react6.default.createElement("div", { className: `session` }, /* @__PURE__ */ import_react6.default.createElement(Drawer_default, { onRetract: () => setPage(null), height: "full" }, session.excercises.map((mexc) => /* @__PURE__ */ import_react6.default.createElement(MeasuredExcercise_default, { mexc })), /* @__PURE__ */ import_react6.default.createElement("div", { className: `session__content`, ref: backplate }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "session__content__btn", onClick: () => setNewExcerciseOpen(true) }, "Add new excercise"), /* @__PURE__ */ import_react6.default.createElement("div", { className: "session__content__btn", onClick: () => setAddExcerciseOpen(true) }, "Add excercise")))), newExcerciseOpen && /* @__PURE__ */ import_react6.default.createElement("div", null, /* @__PURE__ */ import_react6.default.createElement(Drawer_default, { height: "low", onRetract: () => {
-    } }, /* @__PURE__ */ import_react6.default.createElement(AddNew_default, null))), addExcerciseOpen && /* @__PURE__ */ import_react6.default.createElement("div", null, /* @__PURE__ */ import_react6.default.createElement(Drawer_default, { height: "low", onRetract: () => {
-    } }, /* @__PURE__ */ import_react6.default.createElement(Add_default, { onClose: setAddExcerciseOpen }))));
+      return /* @__PURE__ */ import_react7.default.createElement("div", null, "Loading...");
+    return /* @__PURE__ */ import_react7.default.createElement(import_react7.default.Fragment, null, /* @__PURE__ */ import_react7.default.createElement("div", { className: `session` }, /* @__PURE__ */ import_react7.default.createElement(Drawer_default, { onRetract: () => setPage(null), height: "full" }, /* @__PURE__ */ import_react7.default.createElement(ExcerciseList_default, null, session.excercises.map((mexc) => /* @__PURE__ */ import_react7.default.createElement(MeasuredExcercise_default, { mexc }))), /* @__PURE__ */ import_react7.default.createElement("div", { className: `session__content`, ref: backplate }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "session__content__btn", onClick: () => setNewExcerciseOpen(true) }, "Add new excercise"), /* @__PURE__ */ import_react7.default.createElement("div", { className: "session__content__btn", onClick: () => setAddExcerciseOpen(true) }, "Add excercise")))), newExcerciseOpen && /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement(Drawer_default, { height: "low", onRetract: () => {
+    } }, /* @__PURE__ */ import_react7.default.createElement(AddNew_default, null))), addExcerciseOpen && /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement(Drawer_default, { height: "low", onRetract: () => {
+    } }, /* @__PURE__ */ import_react7.default.createElement(Add_default, { onClose: setAddExcerciseOpen }))));
   };
   var Session_default = Session;
 
   // src/components/App/Main/Main.tsx
-  var import_react9 = __toESM(require_react());
+  var import_react10 = __toESM(require_react());
 
   // src/components/ui/StartButton.tsx
-  var import_react8 = __toESM(require_react());
+  var import_react9 = __toESM(require_react());
 
   // src/components/ui/ThumbButton/ThumbButton.tsx
-  var import_react7 = __toESM(require_react());
+  var import_react8 = __toESM(require_react());
   var ThumbButton = ({ onClick }) => {
-    return /* @__PURE__ */ import_react7.default.createElement("div", { className: "thumb-button", onClick });
+    return /* @__PURE__ */ import_react8.default.createElement("div", { className: "thumb-button", onClick });
   };
   var ThumbButton_default = ThumbButton;
 
   // src/components/ui/StartButton.tsx
   var StartButton = () => {
     const setPage = appState_default((state) => state.setPage);
-    return /* @__PURE__ */ import_react8.default.createElement(ThumbButton_default, { onClick: () => setPage("session") });
+    return /* @__PURE__ */ import_react9.default.createElement(ThumbButton_default, { onClick: () => setPage("session") });
   };
   var StartButton_default = StartButton;
 
   // src/components/App/Main/Main.tsx
   var Main = ({ children }) => {
     const page = appState_default((state) => state.page);
-    return /* @__PURE__ */ import_react9.default.createElement("div", { className: `main` }, /* @__PURE__ */ import_react9.default.createElement("div", null, "Main page"), /* @__PURE__ */ import_react9.default.createElement("div", { className: "main__children" }, children), /* @__PURE__ */ import_react9.default.createElement(StartButton_default, null));
+    return /* @__PURE__ */ import_react10.default.createElement("div", { className: `main` }, /* @__PURE__ */ import_react10.default.createElement("div", null, "Main page"), /* @__PURE__ */ import_react10.default.createElement("div", { className: "main__children" }, children), /* @__PURE__ */ import_react10.default.createElement(StartButton_default, null));
   };
   var Main_default = Main;
 
@@ -24723,12 +24730,12 @@
     const page = appState_default((state) => state.page);
     const idb = appState_default((state) => state.idb);
     const initIdb = appState_default((state) => state.initIdb);
-    (0, import_react10.useEffect)(() => {
+    (0, import_react11.useEffect)(() => {
       initIdb();
     }, []);
     if (!idb)
-      return /* @__PURE__ */ import_react10.default.createElement("div", null, "Loading...");
-    return /* @__PURE__ */ import_react10.default.createElement(import_react10.default.Fragment, null, /* @__PURE__ */ import_react10.default.createElement(Main_default, null), page === "session" && /* @__PURE__ */ import_react10.default.createElement(Session_default, null));
+      return /* @__PURE__ */ import_react11.default.createElement("div", null, "Loading...");
+    return /* @__PURE__ */ import_react11.default.createElement(import_react11.default.Fragment, null, /* @__PURE__ */ import_react11.default.createElement(Main_default, null), page === "session" && /* @__PURE__ */ import_react11.default.createElement(Session_default, null));
   };
   var App_default = App;
 
@@ -24737,7 +24744,7 @@
   if (!appRoot)
     throw Error("Cannot find applicaiton root in html.");
   var root = (0, import_client.createRoot)(appRoot);
-  root.render(/* @__PURE__ */ import_react11.default.createElement(App_default, null));
+  root.render(/* @__PURE__ */ import_react12.default.createElement(App_default, null));
 })();
 /*! Bundled license information:
 
