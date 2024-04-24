@@ -7,6 +7,7 @@ interface AppState {
    idb: IDBDatabase | null;
    page: PageOption;
    excercises: Excercise[];
+   sessions: Session[];
    session: Session | null;
    markedExcercises: Excercise[];
    initIdb: () => void;
@@ -27,23 +28,27 @@ const useAppState = create<AppState>((set, get) => ({
    idb: null,
    excercises: [],
    markedExcercises: [],
+   sessions: [],
    session: null,
    ...simultedState,
    initIdb: async () => {
       const db = await initDatabase();
-      const excs = await loadExcercises(db);
+      const { excercises, sessions } = await loadData(db);
 
       set(
          produce<AppState>((state) => {
             state.idb = db;
-            state.excercises = excs;
+            state.excercises = excercises;
+            state.sessions = sessions;
          })
       );
    },
    createSession: () =>
       set(
          produce<AppState>((state) => {
-            state.session = { excercises: [], start: new Date(), end: null };
+            const id = nextId(state.sessions!, "id");
+
+            state.session = { id, excercises: [], start: new Date(), end: null };
          })
       ),
    setPage: (page) =>
@@ -61,9 +66,11 @@ const useAppState = create<AppState>((set, get) => ({
    addToSession: (excercise) =>
       set(
          produce<AppState>((state) => {
-            state.session?.excercises.push({
+            const nextPos = nextId(state.session!.excercises, 'position');
+
+            state.session!.excercises.push({
                ...excercise,
-               position: 0,
+               position: nextPos,
                sets: [{ id: 0, position: 0, reps: "0", resistance: "0" }],
             });
          })
@@ -112,12 +119,20 @@ const initDatabase = (): Promise<IDBDatabase> => {
       request.onupgradeneeded = (event) => {
          const db: IDBDatabase = (event.target as IDBOpenDBRequest).result;
 
-         const objectStore = db.createObjectStore("excercises", {
+         const excerciseStore = db.createObjectStore("excercises", {
             keyPath: "name",
          });
 
-         objectStore.createIndex("excercise_name_idx", "name", {
+         excerciseStore.createIndex("excercise_name_idx", "name", {
             unique: true,
+         });
+
+         const sessionsStore = db.createObjectStore("sessions", {
+            keyPath: "date",
+         });
+
+         sessionsStore.createIndex("sessions_date_idx", "name", {
+            unique: false,
          });
 
          resolve(db);
@@ -135,19 +150,61 @@ const initDatabase = (): Promise<IDBDatabase> => {
    });
 };
 
-const loadExcercises = (idb: IDBDatabase): Promise<Excercise[]> => {
-   return new Promise<Excercise[]>((resolve, reject) => {
-      const transaction = idb.transaction(["excercises"], "readonly");
+const loadData = async (idb: IDBDatabase) => {
+   const transaction = idb.transaction(["excercises", "sessions"], "readonly");
 
-      const objectStore = transaction.objectStore("excercises");
-      const request: IDBRequest<Excercise[]> = objectStore.getAll();
-      request.onsuccess = (event) => {
-         resolve(request.result);
+   const excercises = await loadExcercises(transaction);
+   const sessions = await loadSessions(transaction);
+
+   return { excercises, sessions };
+};
+
+const loadExcercises = (transaction: IDBTransaction): Promise<Excercise[]> => {
+   return new Promise((resolve, reject) => {
+      const excerciseStore = transaction.objectStore("excercises");
+      const excRequest: IDBRequest<Excercise[]> = excerciseStore.getAll();
+
+      excRequest.onsuccess = (event) => {
+         resolve(excRequest.result);
       };
 
-      request.onerror = (event) => {
-         console.log(request.error);
+      excRequest.onerror = (event) => {
+         console.log(excRequest.error);
          reject();
       };
    });
+};
+
+const loadSessions = (transaction: IDBTransaction): Promise<Session[]> => {
+   return new Promise((resolve, reject) => {
+      const sessionsStore = transaction.objectStore("sessions");
+      const sessionsRequest: IDBRequest<Session[]> = sessionsStore.getAll();
+
+      sessionsRequest.onsuccess = (event) => {
+         resolve(sessionsRequest.result);
+      };
+
+      sessionsRequest.onerror = (event) => {
+         console.log(sessionsRequest.error);
+         reject();
+      };
+   });
+};
+
+type NumberKeysOf<T> = {
+   [K in keyof T]: T[K] extends number ? K : never;
+}[keyof T];
+
+const nextId = <T extends { [key: string]: any }, K extends keyof T>(
+   iterableObjects: T[],
+   key: NumberKeysOf<T>
+) => {
+   return (
+      iterableObjects.reduce((acc, curr) => {
+         if (curr[key] > acc) {
+            acc = curr[key];
+         }
+         return acc;
+      }, 0) + 1
+   );
 };

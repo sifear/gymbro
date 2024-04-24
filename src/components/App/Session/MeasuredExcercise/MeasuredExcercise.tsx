@@ -17,7 +17,7 @@ const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
             </div>
          </div>
          {mexc.sets.map((set, i) => (
-            <div key={set.position} className="measured-excercise__set">
+            <div key={set.id} className="measured-excercise__set">
                <div>{i}.</div>
                <div>
                   <input type="text" name="resistance" id={`${mexc.id}_${set.id}_resistance`} />

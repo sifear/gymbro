@@ -16,6 +16,7 @@ interface MeasuredExcercise extends Excercise {
 }
 
 type Session = {
+   id: number;
    start: Date | null;
    end: Date | null;
    excercises: MeasuredExcercise[];

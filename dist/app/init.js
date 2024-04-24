@@ -24496,21 +24496,24 @@
     idb: null,
     excercises: [],
     markedExcercises: [],
+    sessions: [],
     session: null,
     ...simultedState,
     initIdb: async () => {
       const db = await initDatabase();
-      const excs = await loadExcercises(db);
+      const { excercises, sessions } = await loadData(db);
       set2(
         produce((state) => {
           state.idb = db;
-          state.excercises = excs;
+          state.excercises = excercises;
+          state.sessions = sessions;
         })
       );
     },
     createSession: () => set2(
       produce((state) => {
-        state.session = { excercises: [], start: /* @__PURE__ */ new Date(), end: null };
+        const id = nextId(state.sessions, "id");
+        state.session = { id, excercises: [], start: /* @__PURE__ */ new Date(), end: null };
       })
     ),
     setPage: (page) => set2(
@@ -24525,9 +24528,10 @@
     ),
     addToSession: (excercise) => set2(
       produce((state) => {
-        state.session?.excercises.push({
+        const nextPos = nextId(state.session.excercises, "position");
+        state.session.excercises.push({
           ...excercise,
-          position: 0,
+          position: nextPos,
           sets: [{ id: 0, position: 0, reps: "0", resistance: "0" }]
         });
       })
@@ -24568,11 +24572,17 @@
       const request = window.indexedDB.open("gymbro", 1);
       request.onupgradeneeded = (event) => {
         const db = event.target.result;
-        const objectStore = db.createObjectStore("excercises", {
+        const excerciseStore = db.createObjectStore("excercises", {
           keyPath: "name"
         });
-        objectStore.createIndex("excercise_name_idx", "name", {
+        excerciseStore.createIndex("excercise_name_idx", "name", {
           unique: true
+        });
+        const sessionsStore = db.createObjectStore("sessions", {
+          keyPath: "date"
+        });
+        sessionsStore.createIndex("sessions_date_idx", "name", {
+          unique: false
         });
         resolve(db);
       };
@@ -24586,19 +24596,45 @@
       };
     });
   };
-  var loadExcercises = (idb) => {
+  var loadData = async (idb) => {
+    const transaction = idb.transaction(["excercises", "sessions"], "readonly");
+    const excercises = await loadExcercises(transaction);
+    const sessions = await loadSessions(transaction);
+    return { excercises, sessions };
+  };
+  var loadExcercises = (transaction) => {
     return new Promise((resolve, reject) => {
-      const transaction = idb.transaction(["excercises"], "readonly");
-      const objectStore = transaction.objectStore("excercises");
-      const request = objectStore.getAll();
-      request.onsuccess = (event) => {
-        resolve(request.result);
+      const excerciseStore = transaction.objectStore("excercises");
+      const excRequest = excerciseStore.getAll();
+      excRequest.onsuccess = (event) => {
+        resolve(excRequest.result);
       };
-      request.onerror = (event) => {
-        console.log(request.error);
+      excRequest.onerror = (event) => {
+        console.log(excRequest.error);
         reject();
       };
     });
+  };
+  var loadSessions = (transaction) => {
+    return new Promise((resolve, reject) => {
+      const sessionsStore = transaction.objectStore("sessions");
+      const sessionsRequest = sessionsStore.getAll();
+      sessionsRequest.onsuccess = (event) => {
+        resolve(sessionsRequest.result);
+      };
+      sessionsRequest.onerror = (event) => {
+        console.log(sessionsRequest.error);
+        reject();
+      };
+    });
+  };
+  var nextId = (iterableObjects, key) => {
+    return iterableObjects.reduce((acc, curr) => {
+      if (curr[key] > acc) {
+        acc = curr[key];
+      }
+      return acc;
+    }, 0) + 1;
   };
 
   // src/components/App/Session/Session.tsx
@@ -24666,7 +24702,7 @@
   // src/components/App/Session/MeasuredExcercise/MeasuredExcercise.tsx
   var import_react5 = __toESM(require_react());
   var MeasuredMexcercise = ({ mexc }) => {
-    return /* @__PURE__ */ import_react5.default.createElement("div", { key: mexc.id, className: "measured-excercise" }, /* @__PURE__ */ import_react5.default.createElement("div", null, mexc.name), /* @__PURE__ */ import_react5.default.createElement("div", { className: "measured-excercise__header" }, /* @__PURE__ */ import_react5.default.createElement("div", null, "Set"), /* @__PURE__ */ import_react5.default.createElement("div", { className: "measured-excercise__header-labels" }, /* @__PURE__ */ import_react5.default.createElement("div", { className: "input-label" }, "Weight"), /* @__PURE__ */ import_react5.default.createElement("div", { className: "input-label" }, "Reps"))), mexc.sets.map((set2, i) => /* @__PURE__ */ import_react5.default.createElement("div", { key: set2.position, className: "measured-excercise__set" }, /* @__PURE__ */ import_react5.default.createElement("div", null, i, "."), /* @__PURE__ */ import_react5.default.createElement("div", null, /* @__PURE__ */ import_react5.default.createElement("input", { type: "text", name: "resistance", id: `${mexc.id}_${set2.id}_resistance` }), /* @__PURE__ */ import_react5.default.createElement("input", { type: "text", name: "reps", id: `${mexc.id}_${set2.id}_reps` })))));
+    return /* @__PURE__ */ import_react5.default.createElement("div", { key: mexc.id, className: "measured-excercise" }, /* @__PURE__ */ import_react5.default.createElement("div", null, mexc.name), /* @__PURE__ */ import_react5.default.createElement("div", { className: "measured-excercise__header" }, /* @__PURE__ */ import_react5.default.createElement("div", null, "Set"), /* @__PURE__ */ import_react5.default.createElement("div", { className: "measured-excercise__header-labels" }, /* @__PURE__ */ import_react5.default.createElement("div", { className: "input-label" }, "Weight"), /* @__PURE__ */ import_react5.default.createElement("div", { className: "input-label" }, "Reps"))), mexc.sets.map((set2, i) => /* @__PURE__ */ import_react5.default.createElement("div", { key: set2.id, className: "measured-excercise__set" }, /* @__PURE__ */ import_react5.default.createElement("div", null, i, "."), /* @__PURE__ */ import_react5.default.createElement("div", null, /* @__PURE__ */ import_react5.default.createElement("input", { type: "text", name: "resistance", id: `${mexc.id}_${set2.id}_resistance` }), /* @__PURE__ */ import_react5.default.createElement("input", { type: "text", name: "reps", id: `${mexc.id}_${set2.id}_reps` })))));
   };
   var MeasuredExcercise_default = MeasuredMexcercise;
 
