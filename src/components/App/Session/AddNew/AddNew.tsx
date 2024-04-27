@@ -1,22 +1,12 @@
 import React, { useRef } from "react";
-import useAppState from "../../appState";
+import useAppState from "../../../../stores/useAppState";
 
 const AddNew: React.FC = () => {
    const nameRef = useRef<HTMLInputElement>(null);
-   const idb = useAppState(state => state.idb!)
+   const addNewExcercise = useAppState((state) => state.addNewExcercise);
 
    const addExcercise = () => {
-      const transaction = idb.transaction(['excercises'], 'readwrite');
-
-      transaction.oncomplete = (event) => {
-         console.log(event)
-      }
-
-      const objectStore = transaction.objectStore('excercises');
-
-      objectStore.add(
-         { id: nameRef.current!.value, name: nameRef.current!.value }
-      );
+      addNewExcercise(nameRef.current!.value);
    };
 
    return (

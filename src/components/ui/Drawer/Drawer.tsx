@@ -10,7 +10,6 @@ interface Props {
 }
 
 const Drawer: React.FC<Props> = ({ height = "full", onRetract, children }) => {
-   const ref = useRef<HTMLDivElement>(null);
    const [open, setOpen] = useState(false);
 
    useEffect(() => {
@@ -27,14 +26,16 @@ const Drawer: React.FC<Props> = ({ height = "full", onRetract, children }) => {
       }, 200);
    };
 
+   const contentClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
+      console.log("content click");
+      e.stopPropagation();
+      e.preventDefault();
+   };
+
    return (
-      <div className={`drawer ${open && "open"}`}>
-         <div
-            ref={ref}
-            className={`drawer__content ${height} ${open && "open"}`}
-         >
-            {children}
-         </div>
+      <div className={`drawer`}>
+         <div className="drawer__backdrop" onClick={onRetract}></div>
+         <div className={`drawer__content ${height}`}>{children}</div>
       </div>
    );
 };

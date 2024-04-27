@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect, useRef, useSyncExternalStore } from "react";
 import "./MeasuredExcercise.css";
+import useAppState from "../../../../stores/useAppState";
+import useSessionState from "../../../../stores/useSessionState";
+import Resistance from "./MeasuredExcercise/Resistance";
+import Reps from "./MeasuredExcercise/Reps";
 
 interface Props {
    mexc: MeasuredExcercise;
@@ -20,8 +24,8 @@ const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
             <div key={set.id} className="measured-excercise__set">
                <div>{i}.</div>
                <div>
-                  <input type="text" name="resistance" id={`${mexc.id}_${set.id}_resistance`} />
-                  <input type="text" name="reps" id={`${mexc.id}_${set.id}_reps`} />
+                  <Resistance mexc={mexc} set={set} />
+                  <Reps mexc={mexc} set={set} />
                </div>
             </div>
          ))}

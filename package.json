@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "./build.sh",
-    "watch": "./node_modules/.bin/esbuild ./src/init.tsx --bundle --outfile=./dist/app/init.js --watch"
+    "watch": "./node_modules/.bin/esbuild ./src/init.tsx --bundle --sourcemap --outfile=./dist/app/init.js --watch"
   },
   "prettier": {
     "tabWidth": 3,

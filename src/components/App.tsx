@@ -1,11 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import useExcerciseOptions from "../hooks/useExcerciseOptions";
-import useAppState from "./App/appState";
-import Session from "./App/Session/Session";
+import useAppState from "../stores/useAppState";
 import Main from "./App/Main/Main";
 
 const App: React.FC = () => {
-   const page = useAppState((state) => state.page);
    const idb = useAppState((state) => state.idb);
    const initIdb = useAppState((state) => state.initIdb);
 
@@ -13,12 +10,13 @@ const App: React.FC = () => {
       initIdb();
    }, []);
 
+   console.log(idb)
+
    if (!idb) return <div>Loading...</div>
 
    return (
       <>
          <Main />
-         {page === "session" && <Session />}
       </>
    );
 };

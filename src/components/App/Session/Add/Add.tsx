@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import useAppState from "../../appState";
+import useAppState from "../../../../stores/useAppState";
 
 interface Props {
    onClose: React.Dispatch<React.SetStateAction<boolean>>;

@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { produce } from "immer";
 
 type PageOption = null | "session";
+type RepProps = "resistance" | "reps";
 
 interface AppState {
    idb: IDBDatabase | null;
@@ -13,11 +14,13 @@ interface AppState {
    initIdb: () => void;
    setPage: (page: PageOption) => void;
    setExcercises: (excercises: Excercise[]) => void;
-   createSession: () => void;
    toggleMarkExcercise: (excercise: Excercise) => void;
    addMarkedToSession: () => void;
-   addNewExcercise: (excercise: Excercise) => void;
+   addNewExcercise: (name: string) => void;
    addToSession: (excercise: Excercise) => void;
+   saveSessionToDB: (session: Session) => void;
+   initSession: (session?: Session) => void;
+   setSetProp: (mexcId: number, setId: number, propKey: RepProps, propVal: string) => void;
 }
 
 const simultedState: Pick<AppState, "page"> = {
@@ -51,6 +54,35 @@ const useAppState = create<AppState>((set, get) => ({
             state.session = { id, excercises: [], start: new Date(), end: null };
          })
       ),
+   initSession: (session) =>
+      set(
+         produce<AppState>((state) => {
+            if (session) {
+               state.session = JSON.parse(JSON.stringify(session));
+            } else {
+               const last =
+                  state.sessions.length > 0 ? state.sessions[state.sessions.length - 1] : null;
+               const lastInProgress = !last?.end;
+
+               if (lastInProgress) {
+                  console.log('loading last')
+                  state.session = last;
+               } else {
+                  console.log('loading new')
+                  const id = nextId(state.sessions!, "id");
+                  state.session = { id, excercises: [], start: new Date(), end: null };
+               }
+            }
+         })
+      ),
+   setSetProp: (mexcId, setId, propKey, propVal) =>
+      set(
+         produce<AppState>((state) => {
+            let mexc = state.session!.excercises.find((exc) => exc.id == mexcId)!;
+            let set = mexc.sets.find((s) => s.id == setId)!;
+            set[propKey] = propVal;
+         })
+      ),
    setPage: (page) =>
       set(
          produce<AppState>((state) => {
@@ -66,7 +98,7 @@ const useAppState = create<AppState>((set, get) => ({
    addToSession: (excercise) =>
       set(
          produce<AppState>((state) => {
-            const nextPos = nextId(state.session!.excercises, 'position');
+            const nextPos = nextId(state.session!.excercises, "position");
 
             state.session!.excercises.push({
                ...excercise,
@@ -102,12 +134,29 @@ const useAppState = create<AppState>((set, get) => ({
             state.markedExcercises = [];
          })
       ),
-   addNewExcercise: (excercise) =>
+   addNewExcercise: (name) =>
       set(
          produce<AppState>((state) => {
-            state.excercises.push(excercise);
+            const transaction = state.idb!.transaction(["excercises"], "readwrite");
+
+            transaction.oncomplete = (event) => {
+               console.log(event);
+            };
+
+            const objectStore = transaction.objectStore("excercises");
+            const exc = { id: nextId(state.excercises, "id"), name };
+
+            objectStore.add(exc);
+            state.excercises.push(exc);
          })
       ),
+   saveSessionToDB: (session) => {
+      console.log(session);
+      const db = get().idb;
+      const transaction = db!.transaction("sessions", "readwrite");
+      const sesionStore = transaction.objectStore("sessions");
+      sesionStore.put(session);
+   },
 }));
 
 export default useAppState;
@@ -128,14 +177,12 @@ const initDatabase = (): Promise<IDBDatabase> => {
          });
 
          const sessionsStore = db.createObjectStore("sessions", {
-            keyPath: "date",
+            keyPath: "id",
          });
 
-         sessionsStore.createIndex("sessions_date_idx", "name", {
-            unique: false,
+         sessionsStore.createIndex("sessions_id_idx", "id", {
+            unique: true,
          });
-
-         resolve(db);
       };
 
       request.onerror = (event) => {
