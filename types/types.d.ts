@@ -10,7 +10,9 @@ type ExcerciseSet = {
    resistance: string;
 };
 
-interface MeasuredExcercise extends Excercise {
+interface MeasuredExcercise {
+   id: number;
+   excercise: Excercise;
    position: number;
    sets: ExcerciseSet[];
 }

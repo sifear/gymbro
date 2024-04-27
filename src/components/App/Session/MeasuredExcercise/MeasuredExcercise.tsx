@@ -1,18 +1,19 @@
-import React, { useEffect, useRef, useSyncExternalStore } from "react";
+import React from "react";
 import "./MeasuredExcercise.css";
-import useAppState from "../../../../stores/useAppState";
-import useSessionState from "../../../../stores/useSessionState";
 import Resistance from "./MeasuredExcercise/Resistance";
 import Reps from "./MeasuredExcercise/Reps";
+import useAppState from "../../../../stores/useAppState";
 
 interface Props {
    mexc: MeasuredExcercise;
 }
 
 const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
+   const addSet = useAppState(state => state.addSet)
+
    return (
       <div key={mexc.id} className="measured-excercise">
-         <div>{mexc.name}</div>
+         <div>{mexc.excercise.name}</div>
          <div className="measured-excercise__header">
             <div>Set</div>
             <div className="measured-excercise__header-labels">
@@ -29,6 +30,7 @@ const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
                </div>
             </div>
          ))}
+         <button onClick={() => addSet(mexc)}>Add set</button>
       </div>
    );
 };

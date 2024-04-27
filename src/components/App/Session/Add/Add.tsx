@@ -7,10 +7,10 @@ interface Props {
 
 const Add: React.FC<Props> = ({ onClose }) => {
    const excercises = useAppState((state) => state.excercises);
-   const addToSession = useAppState((state) => state.addToSession);
+   const addMeasuredExc = useAppState((state) => state.addMeasuredExc);
 
    const _addToSession = (exc: Excercise) => {
-      addToSession(exc);
+      addMeasuredExc(exc);
       onClose(false);
    };
 
