@@ -18,7 +18,7 @@ interface AppState {
    // addMarkedToSession: () => void;
    addNewExcercise: (name: string) => void;
    addMeasuredExc: (excercise: Excercise) => void;
-   saveSessionToDB: (session: Session) => void;
+   saveSessionToDB: () => void;
    initSession: (session?: Session) => void;
    setSetProp: (mexcId: number, setId: number, propKey: RepProps, propVal: string) => void;
    addSet: (mexc: MeasuredExcercise) => void;
@@ -162,12 +162,11 @@ const useAppState = create<AppState>((set, get) => ({
             state.excercises.push(exc);
          })
       ),
-   saveSessionToDB: (session) => {
-      console.log(session);
+   saveSessionToDB: () => {
       const db = get().idb;
       const transaction = db!.transaction("sessions", "readwrite");
       const sesionStore = transaction.objectStore("sessions");
-      sesionStore.put(session);
+      sesionStore.put(get().session);
    },
 }));
 
