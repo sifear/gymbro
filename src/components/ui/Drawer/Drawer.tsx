@@ -10,32 +10,31 @@ interface Props {
 }
 
 const Drawer: React.FC<Props> = ({ height = "full", onRetract, children }) => {
-   const [open, setOpen] = useState(false);
+   const backdropRef = useRef<HTMLDivElement>(null);
+   const contentRef = useRef<HTMLDivElement>(null);
 
    useEffect(() => {
-      if (!open) {
-         setOpen(true);
-      }
+      setTimeout(() => {
+         contentRef.current!.classList.add(height);
+         backdropRef.current!.classList.add('active');
+      }, 0);
    }, []);
 
-   const onBack = () => {
-      setOpen(false);
+   const onClose = () => {
+      contentRef.current!.classList.remove(height);
+      backdropRef.current!.classList.remove('active');
 
       setTimeout(() => {
-         onRetract();
-      }, 200);
-   };
-
-   const contentClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
-      console.log("content click");
-      e.stopPropagation();
-      e.preventDefault();
-   };
+         onRetract()
+      }, 200)
+   }
 
    return (
       <div className={`drawer`}>
-         <div className="drawer__backdrop" onClick={onRetract}></div>
-         <div className={`drawer__content ${height}`}>{children}</div>
+         <div ref={backdropRef} className="drawer__backdrop" onClick={onClose}></div>
+         <div ref={contentRef} className={`drawer__content`}>
+            {children}
+         </div>
       </div>
    );
 };

@@ -8,6 +8,8 @@ type ExcerciseSet = {
    position: number;
    reps: string;
    resistance: string;
+   targetRep?: string;
+   targetResistance?: string;
 };
 
 interface MeasuredExcercise {

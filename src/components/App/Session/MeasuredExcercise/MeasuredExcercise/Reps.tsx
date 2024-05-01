@@ -8,17 +8,23 @@ interface Props {
 }
 
 const Reps: React.FC<Props> = ({ mexc, set }) => {
-   const repRef = useRef(null);
+   const repRef = useRef<HTMLInputElement>(null);
    const setSetProp = useAppState((state) => state.setSetProp);
    const lazySaver = useSaveLazy(1000);
 
+   const selectFull = () => {
+      repRef.current!.select();
+   };
+
    return (
       <input
+         id={`${mexc.id}_${set.id}_reps`}
          ref={repRef}
          defaultValue={set.reps}
          type="text"
          name="reps"
-         id={`${mexc.id}_${set.id}_reps`}
+         inputMode="numeric"
+         onClick={selectFull}
          onChange={(e) =>
             lazySaver(() => {
                setSetProp(mexc.id, set.id, "reps", e.target.value);

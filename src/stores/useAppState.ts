@@ -14,12 +14,10 @@ interface AppState {
    initIdb: () => void;
    setPage: (page: PageOption) => void;
    setExcercises: (excercises: Excercise[]) => void;
-   toggleMarkExcercise: (excercise: Excercise) => void;
-   // addMarkedToSession: () => void;
    addNewExcercise: (name: string) => void;
+   initSession: (session?: Session) => void;
    addMeasuredExc: (excercise: Excercise) => void;
    saveSessionToDB: () => void;
-   initSession: (session?: Session) => void;
    finishSession: () => void;
    setSetProp: (mexcId: number, setId: number, propKey: RepProps, propVal: string) => void;
    addSet: (mexc: number) => void;
@@ -67,10 +65,8 @@ const useAppState = create<AppState>((set, get) => ({
                const lastInProgress = !last?.end;
 
                if (last && lastInProgress) {
-                  console.log("loading last");
                   state.session = last;
                } else {
-                  console.log("loading new");
                   const id = nextId(state.sessions!, "id");
                   state.session = { id, excercises: [], start: new Date(), end: null };
                }
@@ -131,37 +127,10 @@ const useAppState = create<AppState>((set, get) => ({
                id,
                position,
                excercise_id: excercise.id,
-               sets: [{ id, position: 0, reps: "0", resistance: "0" }],
+               sets: setsWithTarget(excercise, state.sessions),
             });
          })
       ),
-   toggleMarkExcercise: (excercise) =>
-      set(
-         produce<AppState>((state) => {
-            if (state.markedExcercises.find((me) => me.id === excercise.id)) {
-               state.markedExcercises = state.markedExcercises.filter(
-                  (me) => me.id !== excercise.id
-               );
-            } else {
-               state.markedExcercises.push(excercise);
-            }
-         })
-      ),
-   // addMarkedToSession: () =>
-   //    set(
-   //       produce<AppState>((state) => {
-   //          for (const markedExcercise of state.markedExcercises) {
-   //             let position = state.session!.excercises.length + 1;
-   //             state.session!.excercises.push({
-   //                ...markedExcercise,
-   //                position,
-   //                sets: [{ id: 0, position: 0, reps: "0", resistance: "0" }],
-   //             });
-   //          }
-
-   //          state.markedExcercises = [];
-   //       })
-   //    ),
    addNewExcercise: (name) =>
       set(
          produce<AppState>((state) => {
@@ -263,6 +232,31 @@ const loadSessions = (transaction: IDBTransaction): Promise<Session[]> => {
          reject();
       };
    });
+};
+
+const setsWithTarget = (excercise: Excercise, sessions: Session[]): ExcerciseSet[] => {
+   let lastExcercise: MeasuredExcercise | undefined = undefined;
+
+   for (let i = sessions.length - 1; i >= 0; i--) {
+      lastExcercise = sessions[i].excercises.find((exc) => exc.excercise_id === excercise.id);
+
+      if (lastExcercise) {
+         break;
+      }
+   }
+
+   if (lastExcercise) {
+      return lastExcercise.sets.map((s, index) => ({
+         id: s.id,
+         position: s.position,
+         resistance: "0",
+         reps: "0",
+         targetResistance: s.resistance,
+         targetRep: s.reps,
+      }));
+   } else {
+      return [{ id: 0, position: 0, reps: "0", resistance: "0" }];
+   }
 };
 
 type NumberKeysOf<T> = {

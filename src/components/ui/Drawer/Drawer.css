@@ -4,15 +4,15 @@
     position: fixed;
     bottom: 0;
     background-color: transparent;
-    transition: background-color 0.5s cubic-bezier(0, 0.97, 0.02, 0.94);
 }
 
 .drawer__content {
     position: fixed;
     width: 100%;
-    height: 100%;
-    transition: bottom 0.2s ease-in;
+    height: 0;
+    bottom: 0;
     background-color: rgb(188, 133, 255);
+    transition: height 0.2s cubic-bezier(0.03, 1.01, 0.41, 0.97);
 }
 
 .drawer__content.low {
@@ -31,14 +31,15 @@
     height: 98%;
 }
 
-.drawer__content {
-    bottom: 0;
-}
-
 .drawer__backdrop {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.2s cubic-bezier(0.03, 1.01, 0.41, 0.97);
     width: 100%;
     height: 100%;
     position: fixed;
     bottom: 0;
+}
+
+.drawer__backdrop.active {
+    background-color: rgba(0, 0, 0, 0.4);
 }

@@ -10,11 +10,11 @@
    display: flex;
 }
 
-.measured-excercise__header .input-label{
+.measured-excercise__header .input-label {
    width: 58px;
 }
 
-.measured-excercise__header .input-label{
+.measured-excercise__header .input-label {
    width: 58px;
    display: flex;
    justify-content: center;
@@ -28,6 +28,12 @@
    gap: 0.5rem;
 }
 
+.measured-excercise__static {
+   width: calc((116px - 2rem) / 3);
+   text-align: end;
+}
+
 .measured-excercise__set input {
    width: 50px;
+   text-align: end;
 }
