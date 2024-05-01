@@ -20,12 +20,13 @@ interface AppState {
    addMeasuredExc: (excercise: Excercise) => void;
    saveSessionToDB: () => void;
    initSession: (session?: Session) => void;
+   finishSession: () => void;
    setSetProp: (mexcId: number, setId: number, propKey: RepProps, propVal: string) => void;
-   addSet: (mexc: MeasuredExcercise) => void;
+   addSet: (mexc: number) => void;
 }
 
 const simultedState: Pick<AppState, "page"> = {
-   page: "session",
+   page: null,
 };
 
 const useAppState = create<AppState>((set, get) => ({
@@ -76,10 +77,25 @@ const useAppState = create<AppState>((set, get) => ({
             }
          })
       ),
-   addSet: (mexc) =>
+   finishSession: () => {
+      set(
+         produce((state) => {
+            state.session.end = new Date();
+         })
+      );
+      set(
+         produce((state) => {
+            get().saveSessionToDB();
+            state.sessions.push(state.session);
+            state.session = null;
+            state.page = null;
+         })
+      );
+   },
+   addSet: (mexcId) =>
       set(
          produce<AppState>((state) => {
-            const mexc = state.session!.excercises.find((mexc) => mexc.id == mexc.id);
+            const mexc = state.session!.excercises.find((m) => m.id == mexcId);
             const id = nextId(mexc!.sets, "id");
             const position = nextId(mexc!.sets, "position");
             mexc!.sets.push({ id, position, reps: "0", resistance: "0" });
@@ -114,7 +130,7 @@ const useAppState = create<AppState>((set, get) => ({
             state.session!.excercises.push({
                id,
                position,
-               excercise,
+               excercise_id: excercise.id,
                sets: [{ id, position: 0, reps: "0", resistance: "0" }],
             });
          })

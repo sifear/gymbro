@@ -1,12 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import useAppState from "../../../../stores/useAppState";
+import useSaveLazy from "../../../../hooks/useSaveLazy";
 
 interface Props {
    onClose: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Add: React.FC<Props> = ({ onClose }) => {
+const AddExcercise: React.FC<Props> = ({ onClose }) => {
    const excercises = useAppState((state) => state.excercises);
+   const saveLazy = useSaveLazy(0);
    const addMeasuredExc = useAppState((state) => state.addMeasuredExc);
 
    const _addToSession = (exc: Excercise) => {
@@ -17,7 +19,7 @@ const Add: React.FC<Props> = ({ onClose }) => {
    return (
       <div>
          {excercises.map((exc) => (
-            <div key={exc.id} onClick={() => _addToSession(exc)}>
+            <div key={exc.id} onClick={() => saveLazy(() => _addToSession(exc))}>
                {exc.name}
             </div>
          ))}
@@ -25,4 +27,4 @@ const Add: React.FC<Props> = ({ onClose }) => {
    );
 };
 
-export default Add;
+export default AddExcercise;

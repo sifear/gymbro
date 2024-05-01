@@ -3,17 +3,22 @@ import "./MeasuredExcercise.css";
 import Resistance from "./MeasuredExcercise/Resistance";
 import Reps from "./MeasuredExcercise/Reps";
 import useAppState from "../../../../stores/useAppState";
+import useSaveLazy from "../../../../hooks/useSaveLazy";
 
 interface Props {
    mexc: MeasuredExcercise;
 }
 
 const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
-   const addSet = useAppState(state => state.addSet)
+   const addSet = useAppState((state) => state.addSet);
+   const saveLazy = useSaveLazy(0);
+   const excercise = useAppState(
+      (state) => state.excercises.find((e) => e.id === mexc.excercise_id)!
+   );
 
    return (
       <div key={mexc.id} className="measured-excercise">
-         <div>{mexc.excercise.name}</div>
+         <div>{excercise.name}</div>
          <div className="measured-excercise__header">
             <div>Set</div>
             <div className="measured-excercise__header-labels">
@@ -30,7 +35,7 @@ const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
                </div>
             </div>
          ))}
-         <button onClick={() => addSet(mexc)}>Add set</button>
+         <button onClick={() => saveLazy(() => addSet(mexc.id))}>Add set</button>
       </div>
    );
 };

@@ -12,14 +12,14 @@ type ExcerciseSet = {
 
 interface MeasuredExcercise {
    id: number;
-   excercise: Excercise;
+   excercise_id: number;
    position: number;
    sets: ExcerciseSet[];
 }
 
 type Session = {
    id: number;
-   start: Date | null;
+   start: Date;
    end: Date | null;
    excercises: MeasuredExcercise[];
 };

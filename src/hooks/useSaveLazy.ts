@@ -1,10 +1,12 @@
 import { useRef } from "react";
 import useAppState from "../stores/useAppState";
 
-const useSaveLazy = () => {
+const useSaveLazy = (delay: number) => {
+   console.log('lazy with ', delay)
+
     const saveSessionToDB = useAppState((state) => state.saveSessionToDB);
  
-    let timerRef = useRef<NodeJS.Timeout>(setTimeout(() => {}, 1000));
+    let timerRef = useRef<NodeJS.Timeout>(setTimeout(() => {}, delay));
  
     const onChange = (ephemeralSaver: (...args: any[]) => void) => {
        if (timerRef.current) {
@@ -16,7 +18,7 @@ const useSaveLazy = () => {
        timerRef.current = setTimeout(() => {
           console.log("saving...");
           saveSessionToDB();
-       }, 1000);
+       }, delay);
     };
 
     return onChange

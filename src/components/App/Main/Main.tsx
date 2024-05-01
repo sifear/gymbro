@@ -3,6 +3,7 @@ import StartButton from "../../ui/StartButton";
 import "./Main.css";
 import useAppState from "../../../stores/useAppState";
 import Session from "../Session/Session";
+import Diary from "./Diary";
 
 interface Props {
    children?: React.ReactNode;
@@ -15,6 +16,7 @@ const Main: React.FC<Props> = ({ children }) => {
       <div className={`main`}>
          <StartButton />
          <div>Main page</div>
+         <Diary />
          <div className="main__children">
             {page === "session" && <Session />}
          </div>

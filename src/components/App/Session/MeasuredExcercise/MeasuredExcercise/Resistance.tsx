@@ -10,7 +10,7 @@ interface Props {
 const Resistance: React.FC<Props> = ({ mexc, set }) => {
    const resRef = useRef(null);
    const setSetProp = useAppState((state) => state.setSetProp);
-   const lazySaver = useSaveLazy();
+   const lazySaver = useSaveLazy(1000);
 
    return (
       <input

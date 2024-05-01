@@ -10,7 +10,7 @@ interface Props {
 const Reps: React.FC<Props> = ({ mexc, set }) => {
    const repRef = useRef(null);
    const setSetProp = useAppState((state) => state.setSetProp);
-   const lazySaver = useSaveLazy();
+   const lazySaver = useSaveLazy(1000);
 
    return (
       <input

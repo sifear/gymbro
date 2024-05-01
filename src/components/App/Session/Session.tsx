@@ -3,9 +3,10 @@ import "./Session.css";
 import Drawer from "../../ui/Drawer/Drawer";
 import useAppState from "../../../stores/useAppState";
 import AddNew from "./AddNew/AddNew";
-import Add from "./Add/Add";
+import AddExcercise from "./AddExcercise/AddExcercise";
 import MeasuredMexcercise from "./MeasuredExcercise/MeasuredExcercise";
 import ExcerciseList from "./ExcerciseList/ExcerciseList";
+import Timer from "./misc/Timer";
 
 interface Props {}
 
@@ -15,8 +16,8 @@ const Session: React.FC<Props> = ({}) => {
    const [addExcerciseOpen, setAddExcerciseOpen] = useState(false);
    const setPage = useAppState((state) => state.setPage);
    const session = useAppState((state) => state.session);
-   const saveSessionToDB = useAppState((state) => state.saveSessionToDB);
    const initSession = useAppState((state) => state.initSession);
+   const finishSession = useAppState((state) => state.finishSession);
 
    useEffect(() => {
       if (!session) {
@@ -28,7 +29,8 @@ const Session: React.FC<Props> = ({}) => {
 
    return (
       <Drawer onRetract={() => setPage(null)} height="full">
-         <button onClick={() => saveSessionToDB(session)}>Save to db</button>
+         {!session.end && <Timer />}
+         <button onClick={finishSession}>Finish</button>
          <ExcerciseList>
             {session.excercises.map((mexc) => (
                <MeasuredMexcercise key={mexc.id} mexc={mexc} />
@@ -52,7 +54,7 @@ const Session: React.FC<Props> = ({}) => {
          {addExcerciseOpen && (
             <div>
                <Drawer height="low" onRetract={() => setAddExcerciseOpen(false)}>
-                  <Add
+                  <AddExcercise
                      onClose={() => {
                         console.log("click");
                         setAddExcerciseOpen(false);
