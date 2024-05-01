@@ -15,24 +15,21 @@ const Session: React.FC<Props> = ({}) => {
    const [addExcerciseOpen, setAddExcerciseOpen] = useState(false);
    const setPage = useAppState((state) => state.setPage);
    const session = useAppState((state) => state.session);
-   const initSession = useAppState((state) => state.initSession);
+   const closeSession = useAppState((state) => state.closeSession);
    const finishSession = useAppState((state) => state.finishSession);
-
-   useEffect(() => {
-      if (!session) {
-         initSession();
-      }
-   }, []);
 
    if (!session) return <div>Loading...</div>;
 
    return (
       <Drawer onRetract={() => setPage(null)} height="full">
          <div className={`session__content`}>
-            <div>
-               {!session.end && <Timer />}
-               <button onClick={finishSession}>Finish</button>
-            </div>
+            {!session.end && (
+               <div>
+                  {!session.end && <Timer />}
+                  <button onClick={finishSession}>Finish</button>
+               </div>
+            )}
+            <button onClick={closeSession}>Close</button>
             <div>
                <ExcerciseList>
                   {session.excercises.map((mexc) => (

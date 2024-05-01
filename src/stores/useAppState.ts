@@ -15,7 +15,9 @@ interface AppState {
    setPage: (page: PageOption) => void;
    setExcercises: (excercises: Excercise[]) => void;
    addNewExcercise: (name: string) => void;
-   initSession: (session?: Session) => void;
+   createNewSession: () => void;
+   loadSession: (session?: Session) => void;
+   closeSession: () => void;
    addMeasuredExc: (excercise: Excercise) => void;
    saveSessionToDB: () => void;
    finishSession: () => void;
@@ -46,15 +48,23 @@ const useAppState = create<AppState>((set, get) => ({
          })
       );
    },
-   createSession: () =>
+   createNewSession: () => {
       set(
          produce<AppState>((state) => {
             const id = nextId(state.sessions!, "id");
 
             state.session = { id, excercises: [], start: new Date(), end: null };
          })
-      ),
-   initSession: (session) =>
+      );
+      set(
+         produce<AppState>((state) => {
+            get().saveSessionToDB();
+
+            state.page = "session";
+         })
+      );
+   },
+   loadSession: (session) =>
       set(
          produce<AppState>((state) => {
             if (session) {
@@ -67,10 +77,18 @@ const useAppState = create<AppState>((set, get) => ({
                if (last && lastInProgress) {
                   state.session = last;
                } else {
-                  const id = nextId(state.sessions!, "id");
-                  state.session = { id, excercises: [], start: new Date(), end: null };
+                  //
                }
             }
+
+            state.page = "session";
+         })
+      ),
+   closeSession: () =>
+      set(
+         produce<AppState>((state) => {
+            state.session = null;
+            state.page = null;
          })
       ),
    finishSession: () => {

@@ -3,16 +3,9 @@ import ThumbButton from "./ThumbButton/ThumbButton";
 import useAppState from "../../stores/useAppState";
 
 const StartButton: React.FC = () => {
-   const setPage = useAppState((state) => state.setPage);
+   const createNewSession = useAppState((state) => state.createNewSession);
 
-   return (
-      <ThumbButton
-         onClick={() => {
-            console.log("click");
-            setPage("session");
-         }}
-      />
-   );
+   return <ThumbButton onClick={createNewSession} />;
 };
 
 export default StartButton;
