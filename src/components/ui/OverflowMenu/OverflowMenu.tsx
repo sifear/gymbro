@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 
 // svg is inline element by default, height is line height, therefore the need to
 // change this to block to fit container div
@@ -28,23 +28,40 @@ const OverflowMenu: React.FC<Props> = ({
    const ypos3 = height - yPadding;
 
    const [open, setOpen] = useState(false);
+   const [overflowHeight, setOverflowHeight] = useState(0);
+   const listRef = useRef(null);
+
+   useLayoutEffect(() => {
+      if (listRef.current) {
+         setOverflowHeight((listRef.current! as HTMLDivElement).getBoundingClientRect().height);
+      }
+   }, [open]);
 
    return (
-      <div onClick={() => setOpen((prev) => !prev)} style={{ position: 'relative' }}>
+      <div onClick={() => setOpen((prev) => !prev)} style={{ position: "relative" }}>
          <svg
             className="overflow-menu"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             width={width}
             height={height}
-            style={{ display: 'block', border: "1px black solid" }}
+            style={{ display: "block", border: "1px black solid" }}
          >
             <circle cx={xPos} cy={ypos1} r={dotRadius} />
             <circle cx={xPos} cy={ypos2} r={dotRadius} />
             <circle cx={xPos} cy={ypos3} r={dotRadius} />
          </svg>
          {open && (
-            <div style={{position: 'absolute', bottom: 0, right: 0, backgroundColor: 'white', padding: '2px'}}>
+            <div
+               ref={listRef}
+               style={{
+                  position: "absolute",
+                  bottom: 0 - overflowHeight,
+                  right: 0,
+                  backgroundColor: "white",
+                  padding: "2px",
+               }}
+            >
                {menuItems.map((mi) => (
                   <div key={mi}>{mi}</div>
                ))}
