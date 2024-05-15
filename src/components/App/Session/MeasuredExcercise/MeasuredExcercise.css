@@ -6,22 +6,28 @@
    gap: 0.5rem;
 }
 
-.measured-excercise__header-labels {
+.measured-excercise__header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.measured-excercise__table-header-labels {
    display: flex;
 }
 
-.measured-excercise__header .input-label {
+.measured-excercise__table-header .input-label {
    width: 58px;
 }
 
-.measured-excercise__header .input-label {
+.measured-excercise__table-header .input-label {
    width: 58px;
    display: flex;
    justify-content: center;
 }
 
 .measured-excercise__set,
-.measured-excercise__header {
+.measured-excercise__table-header {
    width: 100%;
    display: flex;
    justify-content: space-between;

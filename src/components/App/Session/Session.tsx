@@ -15,7 +15,6 @@ const Session: React.FC<Props> = ({}) => {
    const [addExcerciseOpen, setAddExcerciseOpen] = useState(false);
    const setPage = useAppState((state) => state.setPage);
    const session = useAppState((state) => state.session);
-   const closeSession = useAppState((state) => state.closeSession);
    const finishSession = useAppState((state) => state.finishSession);
 
    if (!session) return <div>Loading...</div>;
@@ -29,7 +28,6 @@ const Session: React.FC<Props> = ({}) => {
                   <button onClick={finishSession}>Finish</button>
                </div>
             )}
-            <button onClick={closeSession}>Close</button>
             <div>
                <ExcerciseList>
                   {session.excercises.map((mexc) => (

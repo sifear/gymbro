@@ -17,7 +17,6 @@ interface AppState {
    addNewExcercise: (name: string) => void;
    createNewSession: () => void;
    loadSession: (session?: Session) => void;
-   closeSession: () => void;
    addMeasuredExc: (excercise: Excercise) => void;
    saveSessionToDB: () => void;
    finishSession: () => void;
@@ -82,13 +81,6 @@ const useAppState = create<AppState>((set, get) => ({
             }
 
             state.page = "session";
-         })
-      ),
-   closeSession: () =>
-      set(
-         produce<AppState>((state) => {
-            state.session = null;
-            state.page = null;
          })
       ),
    finishSession: () => {

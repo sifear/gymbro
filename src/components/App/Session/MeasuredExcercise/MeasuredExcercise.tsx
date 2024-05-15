@@ -4,6 +4,7 @@ import Resistance from "./MeasuredExcercise/Resistance";
 import Reps from "./MeasuredExcercise/Reps";
 import useAppState from "../../../../stores/useAppState";
 import useSaveLazy from "../../../../hooks/useSaveLazy";
+import OverflowMenu from "../../../ui/OverflowMenu/OverflowMenu";
 
 interface Props {
    mexc: MeasuredExcercise;
@@ -18,8 +19,11 @@ const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
 
    return (
       <div key={mexc.id} className="measured-excercise">
-         <div>{excercise.name}</div>
          <div className="measured-excercise__header">
+            <div>{excercise.name}</div>
+            <OverflowMenu menuItems={["history"]} />
+         </div>
+         <div className="measured-excercise__table-header">
             <div>Set</div>
             <div className="measured-excercise__header-labels">
                <div className="input-label">Weight</div>
