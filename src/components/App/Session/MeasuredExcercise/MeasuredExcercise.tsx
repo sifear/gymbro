@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "./MeasuredExcercise.css";
 import Resistance from "./MeasuredExcercise/Resistance";
 import Reps from "./MeasuredExcercise/Reps";
@@ -23,25 +23,23 @@ const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
             <div>{excercise.name}</div>
             <OverflowMenu menuItems={["history"]} />
          </div>
-         <div className="measured-excercise__table-header">
+         <div className="measured-excercise__grid">
             <div>Set</div>
-            <div className="measured-excercise__header-labels">
-               <div className="input-label">Weight</div>
-               <div className="input-label">Reps</div>
-            </div>
-         </div>
-         {mexc.sets.map((set, i) => (
-            <div key={set.id} className="measured-excercise__set">
-               <div className="measured-excercise__static">{i}.</div>
-               <div className="measured-excercise__static">{set.targetResistance}</div>
-               <div className="measured-excercise__static">{set.targetRep}</div>
-               <div>
+            <div></div>
+            <div></div>
+            <div>Weight</div>
+            <div>Reps</div>
+            {mexc.sets.map((set, i) => (
+               <Fragment key={set.id}>
+                  <div>{i}.</div>
+                  <div>{set.targetResistance}</div>
+                  <div>{set.targetRep}</div>
                   <Resistance mexc={mexc} set={set} />
                   <Reps mexc={mexc} set={set} />
-               </div>
-            </div>
-         ))}
-         <button onClick={() => saveLazy(() => addSet(mexc.id))}>Add set</button>
+               </Fragment>
+            ))}
+         </div>
+         <button className="add-set-button" onClick={() => saveLazy(() => addSet(mexc.id))}>Add set</button>
       </div>
    );
 };

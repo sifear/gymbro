@@ -18,9 +18,9 @@ const OverflowMenu: React.FC<Props> = ({
    menuItems,
    onClick,
    onSelect,
-   width = 25,
-   height = 25,
-   dotRadius = 1,
+   width = 20,
+   height = 20,
+   dotRadius = 1.5,
 }) => {
    const xPos = width / 2 - dotRadius / 2;
    const ypos1 = yPadding;
@@ -45,7 +45,7 @@ const OverflowMenu: React.FC<Props> = ({
             xmlns="http://www.w3.org/2000/svg"
             width={width}
             height={height}
-            style={{ display: "block", border: "1px black solid" }}
+            style={{ display: "block"}}
          >
             <circle cx={xPos} cy={ypos1} r={dotRadius} />
             <circle cx={xPos} cy={ypos2} r={dotRadius} />

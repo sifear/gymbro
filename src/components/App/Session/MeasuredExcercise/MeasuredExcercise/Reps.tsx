@@ -19,6 +19,7 @@ const Reps: React.FC<Props> = ({ mexc, set }) => {
    return (
       <input
          id={`${mexc.id}_${set.id}_reps`}
+         className="textinput"
          ref={repRef}
          defaultValue={set.reps}
          type="text"

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import "./Session.css";
 import Drawer from "../../ui/Drawer/Drawer";
 import useAppState from "../../../stores/useAppState";
@@ -31,7 +31,10 @@ const Session: React.FC<Props> = ({}) => {
             <div>
                <ExcerciseList>
                   {session.excercises.map((mexc) => (
-                     <MeasuredMexcercise key={mexc.id} mexc={mexc} />
+                     <Fragment key={mexc.id}>
+                        <MeasuredMexcercise key={mexc.id} mexc={mexc} />
+                        <hr style={{margin: '1rem 0', color: 'gray'}}/>
+                     </Fragment>
                   ))}
                </ExcerciseList>
             </div>

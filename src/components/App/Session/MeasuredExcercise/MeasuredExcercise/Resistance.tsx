@@ -19,6 +19,7 @@ const Resistance: React.FC<Props> = ({ mexc, set }) => {
    return (
       <input
          id={`${mexc.id}_${set.id}_resistance`}
+         className='textinput'
          ref={resRef}
          defaultValue={set.resistance}
          type="text"
