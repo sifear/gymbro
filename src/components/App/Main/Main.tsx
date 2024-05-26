@@ -4,6 +4,7 @@ import "./Main.css";
 import useAppState from "../../../stores/useAppState";
 import Session from "../Session/Session";
 import Diary from "./Diary";
+import Drawer from "../../ui/Drawer/Drawer";
 
 interface Props {
    children?: React.ReactNode;
@@ -13,14 +14,14 @@ const Main: React.FC<Props> = ({ children }) => {
    const page = useAppState((state) => state.page);
 
    return (
-      <div className={`main`}>
-         <StartButton />
-         <div>Main page</div>
-         <Diary />
-         <div className="main__children">
-            {page === "session" && <Session />}
+      <Drawer onRetract={() => {}}>
+         <div className={`main`}>
+            <StartButton />
+            <div>Main page</div>
+            <Diary />
+            <div className="main__children">{page === "session" && <Session />}</div>
          </div>
-      </div>
+      </Drawer>
    );
 };
 

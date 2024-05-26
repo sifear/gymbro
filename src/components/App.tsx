@@ -10,12 +10,13 @@ const App: React.FC = () => {
       initIdb();
    }, []);
 
-   console.log(idb)
+   console.log(idb);
 
-   if (!idb) return <div>Loading...</div>
+   if (!idb) return <div>Loading...</div>;
 
    return (
       <>
+         <div className="main__portal-slot"></div>
          <Main />
       </>
    );

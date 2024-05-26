@@ -1,8 +1,8 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
+import React, { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import registerSW from "./register_sw";
-import App from './components/App';
-import './reset.css';
+import App from "./components/App";
+import "./reset.css";
 
 // registerSW();
 
@@ -10,6 +10,8 @@ const appRoot = document.querySelector("#app");
 if (!appRoot) throw Error("Cannot find applicaiton root in html.");
 
 const root = createRoot(appRoot);
-root.render(<App />);
-
-
+root.render(
+   <StrictMode>
+      <App />
+   </StrictMode>
+);

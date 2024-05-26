@@ -25,21 +25,22 @@ const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
          </div>
          <div className="measured-excercise__grid">
             <div>Set</div>
-            <div></div>
-            <div></div>
+            <div className="measured-excercise__grid-previous-header">Previous</div>
             <div>Weight</div>
             <div>Reps</div>
             {mexc.sets.map((set, i) => (
                <Fragment key={set.id}>
                   <div>{i}.</div>
-                  <div>{set.targetResistance}</div>
-                  <div>{set.targetRep}</div>
+                  <div className="measured-excercise__grid-previous-resistance">{set.targetResistance}</div>
+                  <div className="measured-excercise__grid-previous-reos">{set.targetRep}</div>
                   <Resistance mexc={mexc} set={set} />
                   <Reps mexc={mexc} set={set} />
                </Fragment>
             ))}
          </div>
-         <button className="add-set-button" onClick={() => saveLazy(() => addSet(mexc.id))}>Add set</button>
+         <button className="add-set-button" onClick={() => saveLazy(() => addSet(mexc.id))}>
+            Add set
+         </button>
       </div>
    );
 };
