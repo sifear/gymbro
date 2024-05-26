@@ -16,16 +16,18 @@ const Drawer: React.FC<Props> = ({ id, height = "full", onRetract, children }) =
    const contentRef = useRef<HTMLDivElement>(null);
 
    const slot = document.querySelector("div.main__portal-slot") as HTMLDivElement;
+
+   console.log(slot)
    useEffect(() => {
       setTimeout(() => {
-         contentRef.current!.classList.add(height);
-         backdropRef.current!.classList.add("active");
+         contentRef.current?.classList.add(height);
+         backdropRef.current?.classList.add("active");
       }, 1);
-   }, [parent]);
+   }, []);
 
    const onClose = () => {
-      contentRef.current!.classList.remove(height);
-      backdropRef.current!.classList.remove("active");
+      contentRef.current?.classList.remove(height);
+      backdropRef.current?.classList.remove("active");
 
       setTimeout(() => {
          onRetract();

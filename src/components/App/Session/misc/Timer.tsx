@@ -1,13 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useAppState from "../../../../stores/useAppState";
+
+let interval: NodeJS.Timeout | null = null;
 
 const Timer: React.FC = () => {
    const timerRef = useRef<HTMLDivElement>(null);
-   const intervalRef = useRef<NodeJS.Timeout>();
+   console.log("render");
 
    useEffect(() => {
-      if (!intervalRef.current) {
-         intervalRef.current = setInterval(() => {
+      console.log("effect");
+      if (!interval) {
+         interval = setInterval(() => {
+            console.log(2);
+
             let elapsedSeconds = timerRef.current!.dataset["elapsedSeconds"]!;
             let elapsedMinutes = timerRef.current!.dataset["elapsedMinutes"]!;
             let elapsedHours = timerRef.current!.dataset["elapsedHours"]!;
@@ -38,7 +43,11 @@ const Timer: React.FC = () => {
       }
 
       return () => {
-         clearInterval(intervalRef.current);
+         console.log("clear");
+         if (interval) {
+            clearInterval(interval);
+            interval = null;
+         }
       };
    }, []);
 

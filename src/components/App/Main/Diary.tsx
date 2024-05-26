@@ -10,10 +10,7 @@ const Diary: React.FC = () => {
       setPage("session");
       loadSession(session);
    };
-   console.log(sessions)
    if (!sessions) return <div>Loading...</div>;
-
-   console.log(sessions);
 
    return (
       <div>

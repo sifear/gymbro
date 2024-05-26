@@ -24,6 +24,7 @@ const Session: React.FC<Props> = ({}) => {
          <div className={`session__content`}>
             {!session.end && (
                <div>
+                  {"session ernd:" + session.end}
                   {!session.end && <Timer />}
                   <button onClick={finishSession}>Finish</button>
                </div>

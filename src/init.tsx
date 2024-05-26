@@ -12,6 +12,7 @@ if (!appRoot) throw Error("Cannot find applicaiton root in html.");
 const root = createRoot(appRoot);
 root.render(
    <StrictMode>
+      <div className="main__portal-slot"></div>
       <App />
    </StrictMode>
 );
