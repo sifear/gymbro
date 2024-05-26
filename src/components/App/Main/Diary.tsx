@@ -1,5 +1,6 @@
 import React from "react";
 import useAppState from "../../../stores/useAppState";
+import Calendar from "./Diary/Calendar";
 
 const Diary: React.FC = () => {
    const sessions = useAppState((state) => state.sessions);
@@ -14,11 +15,14 @@ const Diary: React.FC = () => {
 
    return (
       <div>
-         {sessions.map((session) => (
-            <div key={session.id} onClick={() => _loadSession(session)}>
-               {session.id}
-            </div>
-         ))}
+         <Calendar />
+         <div>
+            {sessions.map((session) => (
+               <div key={session.id} onClick={() => _loadSession(session)}>
+                  {session.id}
+               </div>
+            ))}
+         </div>
       </div>
    );
 };

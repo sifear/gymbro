@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import useAppState from "../../../../stores/useAppState";
 import useSaveLazy from "../../../../hooks/useSaveLazy";
+import "./AddExcercise.css";
 
 interface Props {
    onClose: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,10 +18,17 @@ const AddExcercise: React.FC<Props> = ({ onClose }) => {
    };
 
    return (
-      <div>
+      <div className="add-excercise">
          {excercises.map((exc) => (
-            <div key={exc.id} onClick={() => saveLazy(() => _addToSession(exc))}>
-               {exc.name}
+            <div
+               key={exc.id}
+               className="add-excercise__item"
+               onClick={() => saveLazy(() => _addToSession(exc))}
+            >
+               <div>
+                  <img src={`./images/${filename(exc.name)}.png`} alt="" />
+               </div>
+               <div>{exc.name}</div>
             </div>
          ))}
       </div>
@@ -28,3 +36,9 @@ const AddExcercise: React.FC<Props> = ({ onClose }) => {
 };
 
 export default AddExcercise;
+
+const filename = (name: string) =>
+   name
+      .split(" ")
+      .map((w) => w.toLowerCase())
+      .join("_");

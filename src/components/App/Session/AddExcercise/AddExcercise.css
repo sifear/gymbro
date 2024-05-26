@@ -1,0 +1,13 @@
+.add-excercise {
+   padding: 16px;
+}
+
+.add-excercise__item {
+   display: flex;
+   gap: 8px;
+}
+
+.add-excercise__item > div > img {
+   width: 32px;
+   height: 32px;
+}
