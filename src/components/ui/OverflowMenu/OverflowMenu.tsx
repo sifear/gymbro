@@ -1,27 +1,24 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState, PropsWithChildren, ReactElement } from "react";
 
 // svg is inline element by default, height is line height, therefore the need to
 // change this to block to fit container div
 
-interface Props {
-   menuItems: string[];
-   onSelect?: () => void;
-   onClick?: () => void;
+interface Props<T extends any[]> {
+   menuItems: T;
+   onSelect?: (mi: T[number]) => void;
    width?: number;
    height?: number;
    dotRadius?: number;
 }
 
 const yPadding = 5;
-
-const OverflowMenu: React.FC<Props> = ({
+const OverflowMenu = <T extends any[]>({
    menuItems,
-   onClick,
-   onSelect,
-   width = 20,
-   height = 20,
+   width = 25,
+   height = 25,
    dotRadius = 1.5,
-}) => {
+   onSelect,
+}: Props<T>): React.ReactElement => {
    const xPos = width / 2 - dotRadius / 2;
    const ypos1 = yPadding;
    const ypos2 = height / 2;
@@ -45,7 +42,7 @@ const OverflowMenu: React.FC<Props> = ({
             xmlns="http://www.w3.org/2000/svg"
             width={width}
             height={height}
-            style={{ display: "block"}}
+            style={{ display: "block" }}
          >
             <circle cx={xPos} cy={ypos1} r={dotRadius} />
             <circle cx={xPos} cy={ypos2} r={dotRadius} />
@@ -63,7 +60,9 @@ const OverflowMenu: React.FC<Props> = ({
                }}
             >
                {menuItems.map((mi) => (
-                  <div key={mi}>{mi}</div>
+                  <div key={mi} onClick={() => onSelect!(mi)}>
+                     {mi}
+                  </div>
                ))}
             </div>
          )}

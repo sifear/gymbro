@@ -11,6 +11,7 @@ import Timer from "./misc/Timer";
 interface Props {}
 
 const Session: React.FC<Props> = ({}) => {
+   const [closeSesionDrawer, setCloseSessionDrawer] = useState(false);
    const [newExcerciseOpen, setNewExcerciseOpen] = useState(false);
    const [addExcerciseOpen, setAddExcerciseOpen] = useState(false);
    const setPage = useAppState((state) => state.setPage);
@@ -20,14 +21,16 @@ const Session: React.FC<Props> = ({}) => {
    if (!session) return <div>Loading...</div>;
 
    return (
-      <Drawer onRetract={() => setPage(null)} height="full">
+      <Drawer onRetract={() => setPage(null)} height="full" close={closeSesionDrawer}>
          <div className={`session__content`}>
-            {!session.end && (
+            {!session.end ? (
                <div>
                   {"session ernd:" + session.end}
                   {!session.end && <Timer />}
                   <button onClick={finishSession}>Finish</button>
                </div>
+            ) : (
+               <button onClick={() => setCloseSessionDrawer(true)}>Close</button>
             )}
             <div>
                <ExcerciseList>

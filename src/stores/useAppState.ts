@@ -22,6 +22,7 @@ interface AppState {
    finishSession: () => void;
    setSetProp: (mexcId: number, setId: number, propKey: RepProps, propVal: string) => void;
    addSet: (mexc: number) => void;
+   closeSession: () => void;
 }
 
 const simultedState: Pick<AppState, "page"> = {
@@ -163,6 +164,13 @@ const useAppState = create<AppState>((set, get) => ({
       const sesionStore = transaction.objectStore("sessions");
       sesionStore.put(get().session);
    },
+   closeSession: () =>
+      set(
+         produce<AppState>((state) => {
+            state.session = null;
+            state.page = null;
+         })
+      ),
 }));
 
 export default useAppState;

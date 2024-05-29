@@ -1,9 +1,10 @@
 .drawer {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    bottom: 0;
-    background-color: transparent;
+   width: 100%;
+   height: 100%;
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   background-color: transparent;
 }
 
 .drawer__content {
@@ -16,19 +17,19 @@
 }
 
 .drawer__content.low {
-    height: 25%;
+   height: 25%;
 }
 
 .drawer__content.middle {
-    height: 50%;
+   height: 50%;
 }
 
 .drawer__content.high {
-    height: 75%;
+   height: 75%;
 }
 
 .drawer__content.full {
-    height: 98%;
+   height: 98%;
 }
 
 .drawer__backdrop {
@@ -41,5 +42,5 @@
 }
 
 .drawer__backdrop.active {
-    background-color: rgba(0, 0, 0, 0.4);
+   background-color: rgba(0, 0, 0, 0.4);
 }
