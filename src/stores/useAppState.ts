@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { produce } from "immer";
 
-type PageOption = null | "session";
+type PageOption = null | "session" | "dayoverview";
 type RepProps = "resistance" | "reps";
 
 interface AppState {
