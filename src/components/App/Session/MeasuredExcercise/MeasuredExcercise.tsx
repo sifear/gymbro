@@ -15,17 +15,17 @@ const menuItems: ("history" | "else")[] = ["history", "else"];
 export type MenuItems = typeof menuItems;
 
 const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
-   const [showHistory, setShowHistory] = useState(false);
+   const [historyOf, setHistoryOf] = useState<number | null>(null);
    const addSet = useAppState((state) => state.addSet);
    const saveLazy = useSaveLazy(0);
    const excercise = useAppState(
       (state) => state.excercises.find((e) => e.id === mexc.excercise_id)!
    );
 
-   const onSelectOveflowItem = (mi: MenuItems[number]) => {
+   const onSelectOveflowItem = (mi: MenuItems[number], excId: number) => {
       switch (mi) {
          case "history": {
-            setShowHistory(true);
+            setHistoryOf(excId);
             break;
          }
          case "else": {
@@ -40,7 +40,7 @@ const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
             <div>{excercise.name}</div>
             <OverflowMenu
                menuItems={menuItems}
-               onSelect={(mi) => onSelectOveflowItem(mi)}
+               onSelect={(mi) => onSelectOveflowItem(mi, mexc.excercise_id)}
             />
          </div>
          <div className="measured-excercise__grid">
@@ -61,8 +61,7 @@ const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
          <button className="add-set-button" onClick={() => saveLazy(() => addSet(mexc.id))}>
             Add set
          </button>
-         <button onClick={() => saveLazy(() => addSet(mexc.id))}>Add set</button>
-         {showHistory && <ExcerciseHistory onClose={() => setShowHistory(false)} />}
+         {historyOf && <ExcerciseHistory historyOf={historyOf} onClose={() => setHistoryOf(null)} />}
       </div>
    );
 };

@@ -14,7 +14,7 @@ const Main: React.FC<Props> = ({ children }) => {
    const page = useAppState((state) => state.page);
 
    return (
-      <Drawer onRetract={() => {}}>
+      <Drawer onRetract={() => {}} height="full">
          <div className={`main`}>
             <StartButton />
             <div>Main page</div>

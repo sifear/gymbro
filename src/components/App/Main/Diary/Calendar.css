@@ -2,4 +2,13 @@
     padding: 16px;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+}
+
+.calendar__day {
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    padding: 3px;
+    text-align: center;
 }

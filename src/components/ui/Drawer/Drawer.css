@@ -25,11 +25,11 @@
 }
 
 .drawer__content.high {
-   height: 75%;
+   height: 98%;
 }
 
 .drawer__content.full {
-   height: 98%;
+   height: 100%;
 }
 
 .drawer__backdrop {

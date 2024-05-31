@@ -14,9 +14,9 @@ interface Props<T extends any[]> {
 const yPadding = 5;
 const OverflowMenu = <T extends any[]>({
    menuItems,
-   width = 25,
-   height = 25,
-   dotRadius = 1.5,
+   width = 20,
+   height = 20,
+   dotRadius = 1,
    onSelect,
 }: Props<T>): React.ReactElement => {
    const xPos = width / 2 - dotRadius / 2;

@@ -15,6 +15,7 @@ const Calendar: React.FC<Props> = ({ onPick }) => {
          {[...Array(days).keys()].map((d) => (
             <div
                key={d}
+               className="calendar__day"
                style={{
                   gridColumnStart: (offset + d) % 7,
                }}

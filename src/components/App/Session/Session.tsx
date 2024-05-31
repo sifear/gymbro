@@ -21,11 +21,10 @@ const Session: React.FC<Props> = ({}) => {
    if (!session) return <div>Loading...</div>;
 
    return (
-      <Drawer onRetract={() => setPage(null)} height="full" close={closeSesionDrawer}>
+      <Drawer onRetract={() => setPage(null)} height="high" close={closeSesionDrawer}>
          <div className={`session__content`}>
             {!session.end ? (
                <div>
-                  {"session ernd:" + session.end}
                   {!session.end && <Timer />}
                   <button onClick={finishSession}>Finish</button>
                </div>
