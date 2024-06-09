@@ -49,8 +49,9 @@
 }
 
 .add-set-button {
-   background-color: black;
+   background-color: var(--primary-comp-bg);
    color: white;
    border-radius: 5px;
    height: 2rem;
+   border: 2px solid var(--primary-comp-bg);
 }

@@ -6,8 +6,8 @@
 }
 
 .calendar__day {
-    background-color: black;
-    color: white;
+    background-color: var(--primary-comp-bg);
+    color: var(--primary-comp);
     border-radius: 5px;
     padding: 3px;
     text-align: center;

@@ -17,7 +17,6 @@ const Main: React.FC<Props> = ({ children }) => {
       <Drawer onRetract={() => {}} height="full">
          <div className={`main`}>
             <StartButton />
-            <div>Main page</div>
             <Diary />
             <div className="main__children">{page === "session" && <Session />}</div>
          </div>

@@ -1,6 +1,19 @@
+:root {
+   --primary: #dc6b19;
+   --primary-bg: white;
+   --primary-comp: #fff8dc;
+   --primary-comp-bg: #ef9c66;
+
+   --secondary-comp: #684700;
+   --secondary-comp-bg: #FFDE95;
+
+   --drawer-header-height: 3rem;
+}
+
 body {
-    margin: 0;
-    background-color: rgb(126, 126, 126);
-    overflow: hidden;
-    font-family: sans-serif;
+   margin: 0;
+   background-color: rgb(126, 126, 126);
+   overflow: hidden;
+   font-family: sans-serif;
+   color: black;
 }

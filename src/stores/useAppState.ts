@@ -4,6 +4,23 @@ import { produce } from "immer";
 type PageOption = null | "session" | "dayoverview";
 type RepProps = "resistance" | "reps";
 
+export const muscles: Muscles = [
+   "neck",
+   "bicpes",
+   "triceps",
+   "traps",
+   "lats",
+   "back",
+   "glutes",
+   "front delts",
+   "lateral delts",
+   "rear delts",
+   "quads",
+   "hamstring",
+   "calfs",
+   "pecks",
+] as const;
+
 interface AppState {
    idb: IDBDatabase | null;
    page: PageOption;
@@ -14,7 +31,7 @@ interface AppState {
    initIdb: () => void;
    setPage: (page: PageOption) => void;
    setExcercises: (excercises: Excercise[]) => void;
-   addNewExcercise: (name: string) => void;
+   addNewExcercise: (name: string, muscles: Muscles[number][]) => void;
    createNewSession: () => void;
    loadSession: (session?: Session) => void;
    addMeasuredExc: (excercise: Excercise) => void;
@@ -142,7 +159,7 @@ const useAppState = create<AppState>((set, get) => ({
             });
          })
       ),
-   addNewExcercise: (name) =>
+   addNewExcercise: (name, muscles) =>
       set(
          produce<AppState>((state) => {
             const transaction = state.idb!.transaction(["excercises"], "readwrite");
@@ -152,7 +169,7 @@ const useAppState = create<AppState>((set, get) => ({
             };
 
             const objectStore = transaction.objectStore("excercises");
-            const exc = { id: nextId(state.excercises, "id"), name };
+            const exc = { id: nextId(state.excercises, "id"), name, muscles };
 
             objectStore.add(exc);
             state.excercises.push(exc);

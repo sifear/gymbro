@@ -1,5 +1,8 @@
 .diary__log {
-    padding: 16px;
+   padding: 16px;
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
 }
 
 .diary__log-session {
@@ -11,9 +14,24 @@
 .diary__log-session-day {
    display: flex;
    flex-direction: column;
+   align-items: center;
    gap: 2px;
-   background-color: black;
-   color: white;
+   background-color: var(--primary-comp-bg);
+   color: var(--primary-comp);
    border-radius: 5px;
    padding: 3px;
+   width: 60px;
+}
+
+.diary__log-session-day-excs {
+   display: flex;
+   gap: 0.5rem;
+   align-items: center;
+}
+
+.diary__log-session-day-excs > div:first-of-type {
+   color: var(--secondary-comp);
+   background-color: var(--secondary-comp-bg);
+   padding: 4px 8px;
+   border-radius: 5px;
 }

@@ -1,6 +1,24 @@
+type Muscles = (
+   | "neck"
+   | "bicpes"
+   | "triceps"
+   | "traps"
+   | "lats"
+   | "back"
+   | "glutes"
+   | "front delts"
+   | "lateral delts"
+   | "rear delts"
+   | "quads"
+   | "hamstring"
+   | "calfs"
+   | "pecks"
+)[];
+
 type Excercise = {
    id: number;
    name: string;
+   muscles: Muscles[number][];
 };
 
 type ExcerciseSet = {

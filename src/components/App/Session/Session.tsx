@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment, useState } from "react";
 import "./Session.css";
 import Drawer from "../../ui/Drawer/Drawer";
 import useAppState from "../../../stores/useAppState";
@@ -8,35 +8,53 @@ import MeasuredMexcercise from "./MeasuredExcercise/MeasuredExcercise";
 import ExcerciseList from "./ExcerciseList/ExcerciseList";
 import Timer from "./misc/Timer";
 
-interface Props {}
+interface Props {
+   onMaximize: () => void;
+}
 
-const Session: React.FC<Props> = ({}) => {
-   const [closeSesionDrawer, setCloseSessionDrawer] = useState(false);
-   const [newExcerciseOpen, setNewExcerciseOpen] = useState(false);
+const Session: React.FC<Props> = ({ onMaximize }) => {
+   const [minimized, setMinimized] = useState(false);
    const [addExcerciseOpen, setAddExcerciseOpen] = useState(false);
+   const [addExcerciseIsClosing, setAddExcerciseIsClosing] = useState(false);
+   const [newExcerciseOpen, setNewExcerciseOpen] = useState(false);
+   const [newExcerciseIsClosing, setNewExcerciseIsClosing] = useState(false);
    const setPage = useAppState((state) => state.setPage);
    const session = useAppState((state) => state.session);
    const finishSession = useAppState((state) => state.finishSession);
+   const closeSession = useAppState((state) => state.closeSession);
 
    if (!session) return <div>Loading...</div>;
 
    return (
-      <Drawer onRetract={() => setPage(null)} height="high" close={closeSesionDrawer}>
+      <Drawer onMinimize={() => setMinimized(true)} minimized={minimized} height="high">
          <div className={`session__content`}>
             {!session.end ? (
-               <div>
-                  {!session.end && <Timer />}
-                  <button onClick={finishSession}>Finish</button>
+               <div
+                  className="session__content-header"
+                  onClick={() => {
+                     if (minimized) {
+                        setMinimized(false);
+                     }
+                  }}
+               >
+                  <>
+                     <Timer />
+                     <button className="session__content-finish" onClick={finishSession}>
+                        Finish
+                     </button>
+                  </>
                </div>
             ) : (
-               <button onClick={() => setCloseSessionDrawer(true)}>Close</button>
+               <button className="session__content-close" onClick={() => closeSession()}>
+                  Close
+               </button>
             )}
             <div>
                <ExcerciseList>
                   {session.excercises.map((mexc) => (
                      <Fragment key={mexc.id}>
                         <MeasuredMexcercise key={mexc.id} mexc={mexc} />
-                        <hr style={{margin: '1rem 0', color: 'gray'}}/>
+                        <hr style={{ margin: "1rem 0", color: "gray" }} />
                      </Fragment>
                   ))}
                </ExcerciseList>
@@ -49,21 +67,38 @@ const Session: React.FC<Props> = ({}) => {
                   Add new excercise
                </div>
             </div>
-
-            {newExcerciseOpen && (
+            {addExcerciseOpen && (
                <div>
-                  <Drawer height="low" onRetract={() => setNewExcerciseOpen(false)}>
-                     <AddNew />
+                  <Drawer
+                     height="low"
+                     closing={addExcerciseIsClosing}
+                     onClose={() => {
+                        setAddExcerciseIsClosing(false);
+                        setAddExcerciseOpen(false);
+                     }}
+                  >
+                     <AddExcercise
+                        onClose={() => {
+                           setAddExcerciseIsClosing(true);
+                        }}
+                     />
                   </Drawer>
                </div>
             )}
-            {addExcerciseOpen && (
+            {newExcerciseOpen && (
                <div>
-                  <Drawer height="low" onRetract={() => setAddExcerciseOpen(false)}>
-                     <AddExcercise
+                  <Drawer
+                     height="low"
+                     closing={newExcerciseIsClosing}
+                     onClose={() => {
+                        setNewExcerciseIsClosing(false);
+                        setNewExcerciseOpen(false);
+                     }}
+                  >
+                     <AddNew
                         onClose={() => {
-                           console.log("click");
-                           setAddExcerciseOpen(false);
+                           console.log("1");
+                           setNewExcerciseIsClosing(true);
                         }}
                      />
                   </Drawer>
