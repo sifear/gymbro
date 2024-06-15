@@ -1,4 +1,4 @@
-import React, { useContext, useState, useSyncExternalStore } from "react";
+import React from "react";
 import StartButton from "../../ui/StartButton";
 import "./Main.css";
 import useAppState from "../../../stores/useAppState";
@@ -14,7 +14,7 @@ const Main: React.FC<Props> = ({ children }) => {
    const page = useAppState((state) => state.page);
 
    return (
-      <Drawer onRetract={() => {}} height="full">
+      <Drawer height="full">
          <div className={`main`}>
             <StartButton />
             <Diary />

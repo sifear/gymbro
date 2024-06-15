@@ -12,6 +12,7 @@ interface Props {
    onMinimize?: Dispatch<React.SetStateAction<boolean>>;
    closing?: boolean;
    onClose?: () => void;
+   header?: JSX.Element;
 }
 
 const Drawer: React.FC<Props> = ({
@@ -22,6 +23,7 @@ const Drawer: React.FC<Props> = ({
    onMinimize,
    closing,
    onClose,
+   header,
 }) => {
    const backdropRef = useRef<HTMLDivElement>(null);
    const contentRef = useRef<HTMLDivElement>(null);
@@ -70,6 +72,7 @@ const Drawer: React.FC<Props> = ({
                }}
             ></div>
             <div ref={contentRef} className={`drawer__content`}>
+               {header}
                {children}
             </div>
          </div>,

@@ -8,12 +8,11 @@ import MeasuredMexcercise from "./MeasuredExcercise/MeasuredExcercise";
 import ExcerciseList from "./ExcerciseList/ExcerciseList";
 import Timer from "./misc/Timer";
 
-interface Props {
-   onMaximize: () => void;
-}
+interface Props {}
 
-const Session: React.FC<Props> = ({ onMaximize }) => {
+const Session: React.FC<Props> = ({}) => {
    const [minimized, setMinimized] = useState(false);
+   const [sessionClosing, setSessionClosing] = useState(false);
    const [addExcerciseOpen, setAddExcerciseOpen] = useState(false);
    const [addExcerciseIsClosing, setAddExcerciseIsClosing] = useState(false);
    const [newExcerciseOpen, setNewExcerciseOpen] = useState(false);
@@ -26,29 +25,53 @@ const Session: React.FC<Props> = ({ onMaximize }) => {
    if (!session) return <div>Loading...</div>;
 
    return (
-      <Drawer onMinimize={() => setMinimized(true)} minimized={minimized} height="high">
-         <div className={`session__content`}>
-            {!session.end ? (
-               <div
-                  className="session__content-header"
-                  onClick={() => {
-                     if (minimized) {
-                        setMinimized(false);
-                     }
-                  }}
-               >
+      <Drawer
+         height="high"
+         onMinimize={() => setMinimized(true)}
+         minimized={minimized}
+         closing={sessionClosing}
+         onClose={() => {
+            setSessionClosing(false);
+            finishSession();
+         }}
+         header={
+            <div
+               className="session__content-header"
+               style={{
+                  height: minimized
+                     ? "100%"
+                     : getComputedStyle(document.documentElement).getPropertyValue(
+                          "--drawer-header-height"
+                       ),
+               }}
+               onClick={() => {
+                  if (minimized) {
+                     setMinimized(false);
+                  }
+               }}
+            >
+               {!session.end ? (
                   <>
                      <Timer />
-                     <button className="session__content-finish" onClick={finishSession}>
+                     <button
+                        className="session__content-finish"
+                        onClick={() => setSessionClosing(true)}
+                     >
                         Finish
                      </button>
                   </>
-               </div>
-            ) : (
-               <button className="session__content-close" onClick={() => closeSession()}>
-                  Close
-               </button>
-            )}
+               ) : (
+                  <button
+                     className="session__content-close"
+                     onClick={() => setSessionClosing(true)}
+                  >
+                     Close
+                  </button>
+               )}
+            </div>
+         }
+      >
+         <div className={`session__content`}>
             <div>
                <ExcerciseList>
                   {session.excercises.map((mexc) => (
@@ -97,7 +120,6 @@ const Session: React.FC<Props> = ({ onMaximize }) => {
                   >
                      <AddNew
                         onClose={() => {
-                           console.log("1");
                            setNewExcerciseIsClosing(true);
                         }}
                      />
