@@ -8,10 +8,10 @@
 .session__content {
    display: flex;
    flex-direction: column;
-   justify-content: center;
-   align-items: center;
    padding: 0.5rem;
    gap: 0.5rem;
+   overflow: scroll;
+   height: calc(98% - var(--drawer-header-height));
 }
 
 .session__content-header {

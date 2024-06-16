@@ -7,7 +7,7 @@ const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday
 const Log: React.FC = () => {
    const loadSession = useAppState((state) => state.loadSession);
    const excercises = useAppState((state) => state.excercises);
-   const lastFive = useAppState((state) => state.sessions.slice(0, 5));
+   const lastFive = useAppState((state) => state.sessions.slice(0, 5).sort((a,b) => a.start > b.start ? -1 : 1));
 
    return (
       <div className="diary__log">

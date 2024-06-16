@@ -31,8 +31,11 @@ const Session: React.FC<Props> = ({}) => {
          minimized={minimized}
          closing={sessionClosing}
          onClose={() => {
-            setSessionClosing(false);
-            finishSession();
+            if (session.end === null) {
+               finishSession();
+            } else {
+               closeSession();
+            }
          }}
          header={
             <div
@@ -72,16 +75,14 @@ const Session: React.FC<Props> = ({}) => {
          }
       >
          <div className={`session__content`}>
-            <div>
-               <ExcerciseList>
-                  {session.excercises.map((mexc) => (
-                     <Fragment key={mexc.id}>
-                        <MeasuredMexcercise key={mexc.id} mexc={mexc} />
-                        <hr style={{ margin: "1rem 0", color: "gray" }} />
-                     </Fragment>
-                  ))}
-               </ExcerciseList>
-            </div>
+            <ExcerciseList>
+               {session.excercises.map((mexc) => (
+                  <Fragment key={mexc.id}>
+                     <MeasuredMexcercise key={mexc.id} mexc={mexc} />
+                     <hr style={{ margin: "1rem 0", color: "gray" }} />
+                  </Fragment>
+               ))}
+            </ExcerciseList>
             <div className="session__content__page-buttons">
                <div className="session__content__btn" onClick={() => setAddExcerciseOpen(true)}>
                   Add excercise

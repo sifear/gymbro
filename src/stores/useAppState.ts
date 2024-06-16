@@ -116,6 +116,13 @@ const useAppState = create<AppState>((set, get) => ({
          })
       );
    },
+   closeSession: () =>
+      set(
+         produce<AppState>((state) => {
+            state.session = null;
+            state.page = null;
+         })
+      ),
    addSet: (mexcId) =>
       set(
          produce<AppState>((state) => {
@@ -181,13 +188,6 @@ const useAppState = create<AppState>((set, get) => ({
       const sesionStore = transaction.objectStore("sessions");
       sesionStore.put(get().session);
    },
-   closeSession: () =>
-      set(
-         produce<AppState>((state) => {
-            state.session = null;
-            state.page = null;
-         })
-      ),
 }));
 
 export default useAppState;
