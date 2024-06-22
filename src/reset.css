@@ -5,7 +5,7 @@
    --primary-comp-bg: #ef9c66;
 
    --secondary-comp: #684700;
-   --secondary-comp-bg: #FFDE95;
+   --secondary-comp-bg: #ffde95;
 
    --drawer-header-height: 3rem;
 }
@@ -16,4 +16,22 @@ body {
    overflow: hidden;
    font-family: sans-serif;
    color: black;
+}
+
+.button {
+   font-size: 18px;
+   padding: 4px 8px;
+   border-radius: 5px;
+}
+
+.primary {
+   color: var(--primary-comp);
+   background-color: var(--primary-comp-bg);
+   border: none;
+}
+
+.secondary {
+   color: var(--primary-comp-bg);
+   background-color: var(--primary-comp);
+   border: 1px solid var(--primary-comp-bg);
 }

@@ -100,6 +100,9 @@ const Session: React.FC<Props> = ({}) => {
                         setAddExcerciseIsClosing(false);
                         setAddExcerciseOpen(false);
                      }}
+                     onBackdropTap={() => {
+                        setAddExcerciseIsClosing(true);
+                     }}
                   >
                      <AddExcercise
                         onClose={() => {
@@ -117,6 +120,9 @@ const Session: React.FC<Props> = ({}) => {
                      onClose={() => {
                         setNewExcerciseIsClosing(false);
                         setNewExcerciseOpen(false);
+                     }}
+                     onBackdropTap={() => {
+                        setNewExcerciseIsClosing(true);
                      }}
                   >
                      <AddNew

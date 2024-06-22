@@ -9,10 +9,11 @@ interface Props {
    height?: DrawerHeight;
    children?: React.ReactNode;
    minimized?: boolean;
-   onMinimize?: Dispatch<React.SetStateAction<boolean>>;
    closing?: boolean;
    onClose?: () => void;
    header?: JSX.Element;
+   onMinimize?: Dispatch<React.SetStateAction<boolean>>;
+   onBackdropTap?: () => void
 }
 
 const Drawer: React.FC<Props> = ({
@@ -20,10 +21,11 @@ const Drawer: React.FC<Props> = ({
    height = "full",
    children,
    minimized,
-   onMinimize,
    closing,
    onClose,
    header,
+   onMinimize,
+   onBackdropTap
 }) => {
    const backdropRef = useRef<HTMLDivElement>(null);
    const contentRef = useRef<HTMLDivElement>(null);
@@ -68,6 +70,9 @@ const Drawer: React.FC<Props> = ({
                onClick={() => {
                   if (onMinimize) {
                      onMinimize(true);
+                  }
+                  if (onBackdropTap) {
+                     onBackdropTap()
                   }
                }}
             ></div>

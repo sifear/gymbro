@@ -35,6 +35,7 @@ interface AppState {
    createNewSession: () => void;
    loadSession: (session?: Session) => void;
    addMeasuredExc: (excercise: Excercise) => void;
+   deleteMeasuredExc: (excercise: MeasuredExcercise) => void;
    saveSessionToDB: () => void;
    finishSession: () => void;
    setSetProp: (mexcId: number, setId: number, propKey: RepProps, propVal: string) => void;
@@ -164,6 +165,13 @@ const useAppState = create<AppState>((set, get) => ({
                excercise_id: excercise.id,
                sets: setsWithTarget(excercise, state.sessions),
             });
+         })
+      ),
+   deleteMeasuredExc: (mexc) =>
+      set(
+         produce<AppState>((state) => {
+            const index = state.session!.excercises.findIndex((_mexc) => _mexc.id === mexc.id);
+            state.session!.excercises.splice(index, 1);
          })
       ),
    addNewExcercise: (name, muscles) =>

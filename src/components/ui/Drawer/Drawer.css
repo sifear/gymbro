@@ -14,6 +14,7 @@
    bottom: 0;
    background-color: var(--primary-bg);
    transition: height 0.2s cubic-bezier(0.03, 1.01, 0.41, 0.97);
+   overflow: scroll;
 }
 
 .drawer__content.minimized {
