@@ -17,6 +17,10 @@ const AddExcercise: React.FC<Props> = ({ onClose }) => {
       onClose(false);
    };
 
+   const close = () => {
+      onClose(false);
+   };
+
    return (
       <div className="add-excercise">
          {excercises.map((exc) => (
@@ -31,6 +35,7 @@ const AddExcercise: React.FC<Props> = ({ onClose }) => {
                <div>{exc.name}</div>
             </div>
          ))}
+         <button onClick={close}>Cancel</button>
       </div>
    );
 };
