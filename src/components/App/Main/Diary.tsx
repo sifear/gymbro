@@ -28,7 +28,7 @@ const Diary: React.FC = () => {
          />
          <Log />
          {page === "dayoverview" && (
-            <Drawer height="high" onRetract={() => setPage(null)}>
+            <Drawer height="high">
                <DayOverview date={selectedDate} />
             </Drawer>
          )}
