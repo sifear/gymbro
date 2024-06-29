@@ -8,7 +8,7 @@ const Log: React.FC = () => {
    const loadSession = useAppState((state) => state.loadSession);
    const excercises = useAppState((state) => state.excercises);
    const lastFive = useAppState((state) =>
-      state.sessions.slice(0, 5).sort((a, b) => (a.start > b.start ? 1 : -1))
+      state.sessions.toSorted((a, b) => (new Date(a.start) < new Date(b.start) ? 1 : -1)).slice(0, 5)
    );
 
    return (
@@ -20,7 +20,9 @@ const Log: React.FC = () => {
                onClick={() => loadSession(session)}
             >
                <div className="diary__log-session-day">
-                  <div>{new Date(session.start)?.getDate()}</div>
+                  <div>
+                     {new Date(session.start).getMonth() + 1}.{new Date(session.start)?.getDate()}
+                  </div>
                   <div>{weekday[new Date(session.start)?.getDay()]}</div>
                </div>
                <div className="diary__log-session-day-excs">
