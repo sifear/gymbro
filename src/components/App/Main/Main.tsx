@@ -5,6 +5,7 @@ import useAppState from "../../../stores/useAppState";
 import Session from "../Session/Session";
 import Diary from "./Diary";
 import Drawer from "../../ui/Drawer/Drawer";
+import Tally from "./Tally";
 
 interface Props {
    children?: React.ReactNode;
@@ -21,13 +22,13 @@ const Main: React.FC<Props> = ({ children }) => {
             const json_res = await res.json();
             console.log(json_res);
             if (json_res.reload === true) {
-               console.log('need to reload');
+               console.log("need to reload");
                location.reload();
             }
          } catch (e) {
             console.log("cannot update.", e);
          } finally {
-            console.log('sync')
+            console.log("sync");
             syncData();
          }
       })();
@@ -38,7 +39,8 @@ const Main: React.FC<Props> = ({ children }) => {
          <div className={`main`}>
             <StartButton />
             <Diary />
-            <div className="main__children">{page === "session" && <Session />}</div>0.0.34
+            <Tally />
+            <div className="main__children">{page === "session" && <Session />}</div>0.0.39
          </div>
       </Drawer>
    );

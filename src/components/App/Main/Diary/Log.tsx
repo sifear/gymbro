@@ -8,7 +8,7 @@ const Log: React.FC = () => {
    const loadSession = useAppState((state) => state.loadSession);
    const excercises = useAppState((state) => state.excercises);
    const lastFive = useAppState((state) =>
-      state.sessions.toSorted((a, b) => (new Date(a.start) < new Date(b.start) ? 1 : -1)).slice(0, 5)
+      state.sessions.toSorted((a, b) => (new Date(a.start) < new Date(b.start) ? 1 : -1)).slice(0, 7)
    );
 
    return (

@@ -20,12 +20,12 @@ const Diary: React.FC = () => {
 
    return (
       <div>
-         <Calendar
+         {/* <Calendar
             onPick={(e) => {
                setPage("dayoverview");
                setSelectedDate(e);
             }}
-         />
+         /> */}
          <Log />
          {page === "dayoverview" && (
             <Drawer height="high">
