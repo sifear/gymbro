@@ -12,6 +12,7 @@ interface Props {
 
 const Main: React.FC<Props> = ({ children }) => {
    const page = useAppState((state) => state.page);
+   const syncData = useAppState((state) => state.syncData);
 
    useEffect(() => {
       (async () => {
@@ -25,6 +26,9 @@ const Main: React.FC<Props> = ({ children }) => {
             }
          } catch (e) {
             console.log("cannot update.", e);
+         } finally {
+            console.log('sync')
+            syncData();
          }
       })();
    }, []);
@@ -34,7 +38,7 @@ const Main: React.FC<Props> = ({ children }) => {
          <div className={`main`}>
             <StartButton />
             <Diary />
-            <div className="main__children">{page === "session" && <Session />}</div>21
+            <div className="main__children">{page === "session" && <Session />}</div>0.0.34
          </div>
       </Drawer>
    );

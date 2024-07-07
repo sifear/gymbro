@@ -19,6 +19,7 @@
    justify-content: space-between;
    align-items: center;
    height: var(--drawer-header-height);
+   padding: 0 4px;
 }
 
 .session__content > div {
@@ -48,7 +49,6 @@
    font-size: 18px;
    color: var(--primary-comp);
    background-color: var(--primary-comp-bg);
-   border: none;
    padding: 4px 8px;
    border-radius: 5px;
 }

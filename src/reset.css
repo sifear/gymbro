@@ -33,5 +33,5 @@ body {
 .secondary {
    color: var(--primary-comp-bg);
    background-color: var(--primary-comp);
-   border: 1px solid var(--primary-comp-bg);
+   box-shadow: inset 0 0 0 2px var(--primary-comp-bg);
 }

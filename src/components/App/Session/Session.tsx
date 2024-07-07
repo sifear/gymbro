@@ -17,10 +17,10 @@ const Session: React.FC<Props> = ({}) => {
    const [addExcerciseIsClosing, setAddExcerciseIsClosing] = useState(false);
    const [newExcerciseOpen, setNewExcerciseOpen] = useState(false);
    const [newExcerciseIsClosing, setNewExcerciseIsClosing] = useState(false);
-   const setPage = useAppState((state) => state.setPage);
    const session = useAppState((state) => state.session);
    const finishSession = useAppState((state) => state.finishSession);
    const closeSession = useAppState((state) => state.closeSession);
+   const deleteSession = useAppState((state) => state.deleteSession);
 
    if (!session) return <div>Loading...</div>;
 
@@ -55,21 +55,38 @@ const Session: React.FC<Props> = ({}) => {
             >
                {!session.end ? (
                   <>
-                     <Timer />
-                     <button
+                     <Timer start={session.start} />
+                     <div
                         className="session__content-finish"
                         onClick={() => setSessionClosing(true)}
                      >
                         Finish
-                     </button>
+                     </div>
                   </>
                ) : (
-                  <button
-                     className="session__content-close"
-                     onClick={() => setSessionClosing(true)}
-                  >
-                     Close
-                  </button>
+                  <>
+                     <div
+                        className="session__content-close"
+                        onClick={() => setSessionClosing(true)}
+                     >
+                        Close
+                     </div>
+                     <div
+                        style={{ display: "flex", gap: "0.5rem" }}
+                        onClick={() => deleteSession(session.id)}
+                     >
+                        <div
+                           className="button"
+                           style={{
+                              backgroundColor: "#df0000",
+                              color: "white",
+                           }}
+                        >
+                           Delete
+                        </div>
+                        <div className="button secondary">Edit</div>
+                     </div>
+                  </>
                )}
             </div>
          }
@@ -94,7 +111,7 @@ const Session: React.FC<Props> = ({}) => {
             {addExcerciseOpen && (
                <div>
                   <Drawer
-                     height="low"
+                     height="high"
                      closing={addExcerciseIsClosing}
                      onClose={() => {
                         setAddExcerciseIsClosing(false);
@@ -115,7 +132,7 @@ const Session: React.FC<Props> = ({}) => {
             {newExcerciseOpen && (
                <div>
                   <Drawer
-                     height="low"
+                     height="high"
                      closing={newExcerciseIsClosing}
                      onClose={() => {
                         setNewExcerciseIsClosing(false);

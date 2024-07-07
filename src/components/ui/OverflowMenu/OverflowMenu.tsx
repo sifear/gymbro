@@ -69,10 +69,10 @@ const OverflowMenu = <T extends readonly any[]>({
                   bottom: 0 - overflowHeight,
                   right: 0,
                   backgroundColor: "white",
-                  padding: "2px",
+                  padding: "8px 4px",
                }}
             >
-               <div style={{ zIndex: 10000 }}>
+               <div style={{ zIndex: 10000, display: 'flex', flexDirection: 'column', gap: '4px' }}>
                   {menuItems.map((mi) => (
                      <div key={mi} onClick={() => onSelect!(mi)}>
                         {mi}

@@ -45,6 +45,10 @@ export default Log;
 type Frequencies = Record<Muscles[number], number>;
 
 const pickDominant = (mexcs: MeasuredExcercise[], excercises: Excercise[]): string => {
+   if (mexcs.length === 0) {
+      return ''
+   }
+   
    const frequencies: Frequencies = muscles.reduce((acc, curr) => {
       acc[curr] = 0;
       return acc;
@@ -62,6 +66,7 @@ const pickDominant = (mexcs: MeasuredExcercise[], excercises: Excercise[]): stri
          delete frequencies[muscles[i]];
       }
    }
+
 
    return Object.entries(frequencies).sort((a, b) => (a[1] < b[1] ? 1 : -1))[0][0];
 };

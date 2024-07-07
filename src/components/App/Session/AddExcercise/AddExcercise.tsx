@@ -17,7 +17,7 @@ const AddExcercise: React.FC<Props> = ({ onClose }) => {
             exc.name
                .split(" ")
                .map((w) => w.toLowerCase())
-               .some((p) => p.includes(filter))
+               .some((p) => p.includes(filter.toLowerCase()))
       )
    );
    const saveLazy = useSaveLazy(0);

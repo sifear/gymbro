@@ -1,14 +1,31 @@
 import React, { useEffect, useRef, useState } from "react";
+import useBecomesActive from "../useBecomesActive";
 
 let interval: NodeJS.Timeout | null = null;
 
-const Timer: React.FC = () => {
+interface Props {
+   start: Date;
+}
+
+const Timer: React.FC<Props> = ({ start }) => {
    const timerRef = useRef<HTMLDivElement>(null);
+   useBecomesActive(() => {
+      const now = new Date();
+      let remainingSeconds = Math.floor((now.getTime() - start.getTime()) / 1000);
+      const hours = Math.floor(remainingSeconds / 3600);
+      remainingSeconds -= hours * 3600;
+
+      const minutes = Math.floor(remainingSeconds / 100);
+      remainingSeconds -= minutes * 60;
+
+      timerRef.current!.dataset["elapsedSeconds"] = remainingSeconds.toString();
+      timerRef.current!.dataset["elapsedMinutes"] = minutes.toString();
+      timerRef.current!.dataset["elapsedHours"] = hours.toString();
+   });
 
    useEffect(() => {
       if (!interval) {
          interval = setInterval(() => {
-
             let elapsedSeconds = timerRef.current!.dataset["elapsedSeconds"]!;
             let elapsedMinutes = timerRef.current!.dataset["elapsedMinutes"]!;
             let elapsedHours = timerRef.current!.dataset["elapsedHours"]!;

@@ -37,10 +37,13 @@ interface AppState {
    addMeasuredExc: (excercise: Excercise) => void;
    deleteMeasuredExc: (excercise: MeasuredExcercise) => void;
    saveSessionToDB: () => void;
+   deleteSessionFromDB: (id: number) => void;
    finishSession: () => void;
+   deleteSession: (id: number) => void;
    setSetProp: (mexcId: number, setId: number, propKey: RepProps, propVal: string) => void;
    addSet: (mexc: number) => void;
    closeSession: () => void;
+   syncData: () => void;
 }
 
 const simultedState: Pick<AppState, "page"> = {
@@ -109,9 +112,19 @@ const useAppState = create<AppState>((set, get) => ({
          })
       );
       set(
-         produce((state) => {
+         produce<AppState>((state) => {
             get().saveSessionToDB();
-            state.sessions.push(state.session);
+            state.sessions.push(state.session!);
+            state.session = null;
+            state.page = null;
+         })
+      );
+   },
+   deleteSession: (id) => {
+      get().deleteSessionFromDB(id);
+      set(
+         produce<AppState>((state) => {
+            state.sessions = state.sessions.filter((s) => s.id !== id);
             state.session = null;
             state.page = null;
          })
@@ -195,6 +208,29 @@ const useAppState = create<AppState>((set, get) => ({
       const transaction = db!.transaction("sessions", "readwrite");
       const sesionStore = transaction.objectStore("sessions");
       sesionStore.put(get().session);
+   },
+   deleteSessionFromDB: (id) => {
+      const db = get().idb;
+      const transaction = db!.transaction("sessions", "readwrite");
+      const sesionStore = transaction.objectStore("sessions");
+      sesionStore.delete(id);
+   },
+   syncData: async () => {
+      const db = get().idb;
+      const transaction = db!.transaction("sessions", "readwrite");
+      const sessionStorage = transaction.objectStore("sessions");
+      const request = sessionStorage.getAll();
+
+      request.onsuccess = async (event) => {
+         const result = (event.target as IDBOpenDBRequest).result;
+         console.log("fetch here", result);
+
+         const res = await fetch("http://localhost:3000/sync_data", {
+            method: "POST",
+            body: JSON.stringify(result),
+            headers: { "Content-Type": "application/json" },
+         });
+      };
    },
 }));
 
