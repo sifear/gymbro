@@ -36,11 +36,22 @@ const Main: React.FC<Props> = ({ children }) => {
 
    return (
       <Drawer height="full">
-         <div className={`main`}>
+         <div
+            style={{
+               position: "fixed",
+               height: "100%",
+               width: "100%",
+               top: "0",
+               display: "flex",
+               flexDirection: "column",
+            }}
+         >
             <StartButton />
             <Diary />
             <Tally />
-            <div className="main__children">{page === "session" && <Session />}</div>0.0.39
+            <div className="main__children">{page === "session" && <Session />}</div>
+            <div style={{ flexGrow: 1 }}></div>
+            <div style={{ alignSelf: 'center' }}>v0.0.39</div>
          </div>
       </Drawer>
    );

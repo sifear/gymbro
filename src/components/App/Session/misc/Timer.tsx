@@ -15,7 +15,7 @@ const Timer: React.FC<Props> = ({ start }) => {
       const hours = Math.floor(remainingSeconds / 3600);
       remainingSeconds -= hours * 3600;
 
-      const minutes = Math.floor(remainingSeconds / 100);
+      const minutes = Math.floor(remainingSeconds / 60);
       remainingSeconds -= minutes * 60;
 
       timerRef.current!.dataset["elapsedSeconds"] = remainingSeconds.toString();

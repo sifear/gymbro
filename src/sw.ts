@@ -42,8 +42,6 @@ self.addEventListener("fetch", (event) => {
          }
 
          try {
-            console.log("not cached, getting from network...");
-
             const responseFromNetwork = await fetch(request);
             const cache = await caches.open("v1");
             await cache.put(request, responseFromNetwork.clone());
