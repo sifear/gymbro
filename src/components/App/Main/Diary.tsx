@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import useAppState from "../../../stores/useAppState";
-import Calendar from "./Diary/Calendar";
 import Drawer from "../../ui/Drawer/Drawer";
 import DayOverview from "./DayOverview";
 import Log from "./Diary/Log";
