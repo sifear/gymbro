@@ -10,11 +10,11 @@ const Log: React.FC = () => {
    const lastFive = useAppState((state) =>
       state.sessions
          .toSorted((a, b) => (new Date(a.start) < new Date(b.start) ? 1 : -1))
-         .slice(0, 7)
+         .slice(0, 10)
    );
 
    return (
-      <div style={{ padding: "16px", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
          {lastFive.map((session) => (
             <div
                key={session.id}
@@ -30,7 +30,6 @@ const Log: React.FC = () => {
                      backgroundColor: "var(--primary-comp-bg)",
                      color: "var(--primary-comp)",
                      borderRadius: "5px",
-                     padding: "3px",
                      fontSize: '14px',
                      maxWidth: '80px',
                      minWidth: '80px'

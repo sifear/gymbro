@@ -17,6 +17,11 @@
    grid-template-columns: repeat(5, 0.2fr);
    gap: 0.25rem;
    justify-items: end;
+   margin-bottom: 0.25rem;
+}
+
+.measured-excercise__grid.selected {
+   background-color: red;
 }
 
 .measured-excercise__grid-previous-header {
@@ -33,8 +38,7 @@
    text-align: center;
 }
 
-.measured-excercise__grid > :nth-child(1),
-.measured-excercise__grid > :nth-child(5n) {
+.measured-excercise__grid > :nth-child(1) {
    justify-self: start;
 }
 

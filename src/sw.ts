@@ -5,10 +5,6 @@ self.addEventListener("fetch", (event) => {
 
          const responseFromCache = await caches.match(request);
 
-         if (request.url.includes("check_update")) {
-            console.log("fetch event for check update");
-         }
-
          if (request.url.includes("check_update") && responseFromCache) {
             console.log("update check is cached");
             const cachedVersion = await responseFromCache.json();

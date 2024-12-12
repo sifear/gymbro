@@ -325,14 +325,19 @@ const setsWithTarget = (excercise: Excercise, sessions: Session[]): ExcerciseSet
    }
 
    if (lastExcercise) {
-      return lastExcercise.sets.map((s, index) => ({
-         id: s.id,
-         position: s.position,
-         resistance: "0",
-         reps: "0",
-         targetResistance: s.resistance,
-         targetRep: s.reps,
-      }));
+      return lastExcercise.sets.reduce((acc, curr, index) => {
+         if (curr.reps !== "0") {
+            acc.push({
+               id: curr.id,
+               position: curr.position,
+               resistance: curr.resistance,
+               reps: "0",
+               targetResistance: curr.resistance,
+               targetRep: curr.reps,
+            });
+         }
+         return acc;
+      }, [] as ExcerciseSet[]);
    } else {
       return [{ id: 0, position: 0, reps: "0", resistance: "0" }];
    }

@@ -1,0 +1,15 @@
+.excercise-history__resistance,
+.excercise-history__reps {
+   padding: 4px;
+}
+
+.excercise-history__resistance[data-even="0"],
+.excercise-history__reps[data-even="0"] {
+   background-color: var(--secondary-comp-bg);
+}
+
+.excercise-history__sundry {
+   padding: 4px;
+   margin: 6px 0;
+   border-bottom: 1px solid gray;
+}

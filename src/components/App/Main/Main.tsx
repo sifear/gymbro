@@ -18,18 +18,20 @@ const Main: React.FC<Props> = ({ children }) => {
    useEffect(() => {
       (async () => {
          try {
-            const res = await fetch("/check_update");
+            const res = await fetch("/check_update_sq");
             const json_res = await res.json();
             console.log(json_res);
             if (json_res.reload === true) {
                console.log("need to reload");
                location.reload();
+            } else {
+               console.log("no need to update ", json_res);
             }
          } catch (e) {
             console.log("cannot update.", e);
          } finally {
-            console.log("sync");
-            syncData();
+            // console.log("sync");
+            // syncData();
          }
       })();
    }, []);
@@ -40,18 +42,27 @@ const Main: React.FC<Props> = ({ children }) => {
             style={{
                position: "fixed",
                height: "100%",
-               width: "100%",
+               width: '100%',
                top: "0",
                display: "flex",
                flexDirection: "column",
             }}
          >
-            <StartButton />
-            <Diary />
-            <Tally />
-            <div className="main__children">{page === "session" && <Session />}</div>
-            <div style={{ flexGrow: 1 }}></div>
-            <div style={{ alignSelf: 'center' }}>v0.0.39</div>
+               
+               <div style={{padding: '8px 8px 0 8px', position: 'relative', display: "flex", flexDirection: "column", flexGrow: 1 }}>
+               <Diary />
+               <Tally />
+               <StartButton />
+               <div className="main__children">{page === "session" && <Session />}</div>
+            </div>
+            <div
+               style={{
+                  alignSelf: "center",
+                  fontSize: "12px",
+               }}
+            >
+               v0.0.74
+            </div>
          </div>
       </Drawer>
    );

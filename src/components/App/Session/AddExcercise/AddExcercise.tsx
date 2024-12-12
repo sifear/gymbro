@@ -10,16 +10,7 @@ const images = ["bench_press", "deadlift"];
 
 const AddExcercise: React.FC<Props> = ({ onClose }) => {
    const [filter, setFilter] = useState<string | null>(null);
-   const excercises = useAppState((state) =>
-      state.excercises.filter(
-         (exc) =>
-            filter === null ||
-            exc.name
-               .split(" ")
-               .map((w) => w.toLowerCase())
-               .some((p) => p.includes(filter.toLowerCase()))
-      )
-   );
+   const excercises = useAppState((state) => filterAndOrder(state.excercises, filter));
    const saveLazy = useSaveLazy(0);
    const addMeasuredExc = useAppState((state) => state.addMeasuredExc);
 
@@ -33,9 +24,9 @@ const AddExcercise: React.FC<Props> = ({ onClose }) => {
    };
 
    return (
-      <div style={{ padding: "16px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "16px", padding: "16px" }}>
          <input
-            style={{ marginBottom: "8px" }}
+            style={{ fontSize: "16px" }}
             type="text"
             value={filter || ""}
             onChange={(e) => setFilter(e.target.value)}
@@ -79,7 +70,9 @@ const AddExcercise: React.FC<Props> = ({ onClose }) => {
                </div>
             ))}
          </div>
-         <button onClick={close}>Cancel</button>
+         <button className="add-set-button" onClick={close}>
+            Cancel
+         </button>
       </div>
    );
 };
@@ -99,4 +92,24 @@ const randomColor = () => {
    console.log(colors[(Math.random() * 10) % 4]);
 
    return colors[Math.floor(Math.random() * 10) % 4];
+};
+
+type NamedObject = {
+   name: string;
+   [key: string]: any;
+};
+
+const filterAndOrder = <T extends NamedObject>(list: T[], filter: string | null): T[] => {
+   if (filter === null || filter === "") return list;
+
+   const filterWords = filter.toLocaleLowerCase().split(" ");
+
+   return list.filter((exc) =>
+      filterWords.every((fw) =>
+         exc.name
+            .toLowerCase()
+            .split(" ")
+            .some((ew) => ew.includes(fw))
+      )
+   );
 };

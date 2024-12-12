@@ -65,7 +65,7 @@ const Timer: React.FC<Props> = ({ start }) => {
 
    return (
       <div ref={timerRef} data-elapsed-seconds="0" data-elapsed-minutes="0" data-elapsed-hours="0">
-         0
+         00:00:00
       </div>
    );
 };

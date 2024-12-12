@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { CSSProperties, useState } from "react";
 import "./MeasuredExcercise.css";
 import Resistance from "./MeasuredExcercise/Resistance";
 import Reps from "./MeasuredExcercise/Reps";
@@ -16,6 +16,7 @@ export type MenuItems = typeof menuItems;
 
 const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
    const [historyOf, setHistoryOf] = useState<number | null>(null);
+   const [holdSelected, setHoldSelected] = useState<null | number>(null);
    const addSet = useAppState((state) => state.addSet);
    const deleteMeasuredExc = useAppState((state) => state.deleteMeasuredExc);
    const saveLazy = useSaveLazy(0);
@@ -31,7 +32,7 @@ const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
             break;
          }
          case "delete": {
-            saveLazy(() => deleteMeasuredExc(mexc))
+            saveLazy(() => deleteMeasuredExc(mexc));
             break;
          }
          case "else": {
@@ -49,22 +50,36 @@ const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
                onSelect={(mi) => onSelectOveflowItem(mi, mexc.excercise_id)}
             />
          </div>
-         <div className="measured-excercise__grid">
-            <div>Set</div>
-            <div className="measured-excercise__grid-previous-header">Previous</div>
-            <div>Weight</div>
-            <div>Reps</div>
-            {mexc.sets.map((set, i) => (
-               <Fragment key={set.id}>
-                  <div>{i}.</div>
-                  <div className="measured-excercise__grid-previous-resistance">
-                     {set.targetResistance}
-                  </div>
-                  <div className="measured-excercise__grid-previous-reos">{set.targetRep}</div>
-                  <Resistance mexc={mexc} set={set} />
-                  <Reps mexc={mexc} set={set} />
-               </Fragment>
-            ))}
+         <div
+            style={{
+               display: "flex",
+               flexDirection: "column",
+               gap: "0.25rem",
+            }}
+         >
+            <div className="measured-excercise__grid">
+               <div>Set</div>
+               <div className="measured-excercise__grid-previous-header">Previous</div>
+               <div>Weight</div>
+               <div>Reps</div>
+            </div>
+            <div>
+               {mexc.sets.map((set, i) => (
+                  <HoldSelect key={set.id} onSelect={() => setHoldSelected(i)}>
+                     <div className={`measured-excercise__grid ${holdSelected == i && "selected"}`}>
+                        <div>{i}.</div>
+                        <div className="measured-excercise__grid-previous-resistance">
+                           {set.targetResistance}
+                        </div>
+                        <div className="measured-excercise__grid-previous-reos">
+                           {set.targetRep}
+                        </div>
+                        <Resistance mexc={mexc} set={set} />
+                        <Reps mexc={mexc} set={set} />
+                     </div>
+                  </HoldSelect>
+               ))}
+            </div>
          </div>
          <button className="add-set-button" onClick={() => saveLazy(() => addSet(mexc.id))}>
             Add set
@@ -77,3 +92,33 @@ const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
 };
 
 export default MeasuredMexcercise;
+
+type HoldSelectProps = {
+   onSelect: () => void;
+   className?: string;
+   style?: CSSProperties;
+   children?: React.ReactNode;
+};
+
+const HoldSelect: React.FC<HoldSelectProps> = ({ onSelect, className, style, children }) => {
+   const [downTime, registerDownTime] = useState<null | Date>(null);
+
+   return (
+      <div
+         style={style ? style : {}}
+         className={className ? className : "hold-select"}
+         onPointerDown={() => {
+            registerDownTime(new Date());
+         }}
+         onPointerUp={() => {
+            const holdTime = new Date().getTime() - downTime!.getTime();
+
+            if (holdTime > 1000) {
+               onSelect();
+            }
+         }}
+      >
+         {children}
+      </div>
+   );
+};

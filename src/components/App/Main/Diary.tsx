@@ -19,7 +19,7 @@ const Diary: React.FC = () => {
    if (!sessions) return <div>Loading...</div>;
 
    return (
-      <div>
+      <div style={{ flexGrow: "1", overflowY: 'scroll' }}>
          {/* <Calendar
             onPick={(e) => {
                setPage("dayoverview");

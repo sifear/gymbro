@@ -3,7 +3,6 @@ import React, { useLayoutEffect, useRef, useState, PropsWithChildren, ReactEleme
 // svg is inline element by default, height is line height, therefore the need to
 // change this to block to fit container div
 
-
 interface Props<T extends readonly any[]> {
    menuItems: T;
    onSelect?: (mi: T[number]) => void;
@@ -69,10 +68,11 @@ const OverflowMenu = <T extends readonly any[]>({
                   bottom: 0 - overflowHeight,
                   right: 0,
                   backgroundColor: "white",
-                  padding: "8px 4px",
+                  padding: "8px 8px",
+                  fontSize: '1.25rem'
                }}
             >
-               <div style={{ zIndex: 10000, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+               <div style={{ zIndex: 10000, display: "flex", flexDirection: "column", gap: "4px" }}>
                   {menuItems.map((mi) => (
                      <div key={mi} onClick={() => onSelect!(mi)}>
                         {mi}
