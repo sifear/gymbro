@@ -73,10 +73,10 @@ const Session: React.FC<Props> = ({}) => {
                      </div>
                      <div
                         style={{ display: "flex", gap: "0.5rem" }}
-                        onClick={() => deleteSession(session.id)}
                      >
                         <div
                            className="button"
+                           onClick={() => deleteSession(session.id)}
                            style={{
                               backgroundColor: "#df0000",
                               color: "white",
@@ -84,7 +84,6 @@ const Session: React.FC<Props> = ({}) => {
                         >
                            Delete
                         </div>
-                        <div className="button secondary">Edit</div>
                      </div>
                   </>
                )}

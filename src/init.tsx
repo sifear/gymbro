@@ -4,7 +4,7 @@ import registerSW from "./register_sw";
 import App from "./components/App";
 import "./reset.css";
 
-// registerSW();
+registerSW();
 
 const appRoot = document.querySelector("#app");
 if (!appRoot) throw Error("Cannot find applicaiton root in html.");

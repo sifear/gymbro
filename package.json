@@ -13,7 +13,8 @@
   },
   "scripts": {
     "build": "./build.sh",
-    "watch": "./node_modules/.bin/esbuild ./src/init.tsx ./src/sw.ts --bundle --sourcemap --outdir=./dist/app --watch"
+    "watch": "./node_modules/.bin/esbuild ./src/init.tsx ./src/sw.ts --bundle --sourcemap --outdir=./dist/app --watch",
+    "deploy": "./deploy.js" 
   },
   "prettier": {
     "tabWidth": 3,

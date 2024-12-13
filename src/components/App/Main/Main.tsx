@@ -61,7 +61,7 @@ const Main: React.FC<Props> = ({ children }) => {
                   fontSize: "12px",
                }}
             >
-               v0.0.74
+               v0.0.88
             </div>
          </div>
       </Drawer>
