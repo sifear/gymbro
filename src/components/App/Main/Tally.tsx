@@ -54,7 +54,8 @@ const Tally: React.FC = () => {
          style={{
             backgroundColor: "#ffde95",
             borderRadius: "5px",
-            padding: '4px'
+            padding: '8px',
+            gridArea: 'tally'
          }}
       >
          <div style={{ fontWeight: "600", color: "var(--secondary-comp)", padding: "0.5rem 0" }}>

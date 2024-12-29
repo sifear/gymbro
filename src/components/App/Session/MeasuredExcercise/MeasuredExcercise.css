@@ -17,11 +17,12 @@
    grid-template-columns: repeat(5, 0.2fr);
    gap: 0.25rem;
    justify-items: end;
-   margin-bottom: 0.25rem;
+   padding: 4px 0;
+   border-radius: 5px;
 }
 
 .measured-excercise__grid.selected {
-   background-color: red;
+   /* background-color: #df0000; */
 }
 
 .measured-excercise__grid-previous-header {

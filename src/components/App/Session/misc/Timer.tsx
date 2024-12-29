@@ -9,19 +9,23 @@ interface Props {
 
 const Timer: React.FC<Props> = ({ start }) => {
    const timerRef = useRef<HTMLDivElement>(null);
-   useBecomesActive(() => {
-      const now = new Date();
-      let remainingSeconds = Math.floor((now.getTime() - start.getTime()) / 1000);
-      const hours = Math.floor(remainingSeconds / 3600);
-      remainingSeconds -= hours * 3600;
+   let initialValue = "";
+   let ih = "0"
+   let im = "0"
+   let is = "0"
 
-      const minutes = Math.floor(remainingSeconds / 60);
-      remainingSeconds -= minutes * 60;
+   const now = new Date();
+   let remainingSeconds = Math.floor((now.getTime() - new Date(start).getTime()) / 1000);
+   const hours = Math.floor(remainingSeconds / 3600);
+   remainingSeconds -= hours * 3600;
 
-      timerRef.current!.dataset["elapsedSeconds"] = remainingSeconds.toString();
-      timerRef.current!.dataset["elapsedMinutes"] = minutes.toString();
-      timerRef.current!.dataset["elapsedHours"] = hours.toString();
-   });
+   const minutes = Math.floor(remainingSeconds / 60);
+   remainingSeconds -= minutes * 60;
+
+   initialValue = formatElapsetData(hours.toString(), minutes.toString(), remainingSeconds.toString());
+   ih = hours.toString()
+   im = minutes.toString()
+   is = remainingSeconds.toString()
 
    useEffect(() => {
       if (!interval) {
@@ -43,15 +47,11 @@ const Timer: React.FC<Props> = ({ start }) => {
                elapsedSeconds = (+elapsedSeconds + 1).toString();
             }
 
-            let hh = elapsedHours.length === 1 ? `0${elapsedHours}` : elapsedHours;
-            let mm = elapsedMinutes.length === 1 ? `0${elapsedMinutes}` : elapsedMinutes;
-            let ss = elapsedSeconds.length === 1 ? `0${elapsedSeconds}` : elapsedSeconds;
-
             timerRef.current!.dataset["elapsedSeconds"] = elapsedSeconds.toString();
             timerRef.current!.dataset["elapsedMinutes"] = elapsedMinutes.toString();
             timerRef.current!.dataset["elapsedHours"] = elapsedHours.toString();
 
-            timerRef.current!.textContent = `${hh}:${mm}:${ss}`;
+            timerRef.current!.textContent = formatElapsetData(elapsedHours, elapsedMinutes, elapsedSeconds);
          }, 1000);
       }
 
@@ -64,10 +64,18 @@ const Timer: React.FC<Props> = ({ start }) => {
    }, []);
 
    return (
-      <div ref={timerRef} data-elapsed-seconds="0" data-elapsed-minutes="0" data-elapsed-hours="0">
-         00:00:00
+      <div ref={timerRef} data-elapsed-seconds={is} data-elapsed-minutes={im} data-elapsed-hours={ih}>
+         {initialValue}
       </div>
    );
 };
 
 export default Timer;
+
+const formatElapsetData = (elapsedHours: string, elapsedMinutes: string, elapsedSeconds: string) => {
+   let hh = elapsedHours.length === 1 ? `0${elapsedHours}` : elapsedHours;
+   let mm = elapsedMinutes.length === 1 ? `0${elapsedMinutes}` : elapsedMinutes;
+   let ss = elapsedSeconds.length === 1 ? `0${elapsedSeconds}` : elapsedSeconds;
+
+   return `${hh}:${mm}:${ss}`;
+};

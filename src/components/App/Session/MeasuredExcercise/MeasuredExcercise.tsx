@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
 import "./MeasuredExcercise.css";
 import Resistance from "./MeasuredExcercise/Resistance";
 import Reps from "./MeasuredExcercise/Reps";
@@ -19,6 +19,7 @@ const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
    const [holdSelected, setHoldSelected] = useState<null | number>(null);
    const addSet = useAppState((state) => state.addSet);
    const deleteMeasuredExc = useAppState((state) => state.deleteMeasuredExc);
+   const deleteSet = useAppState((state) => state.deleteSet);
    const saveLazy = useSaveLazy(0);
    const excercise = useAppState(
       (state) => state.excercises.find((e) => e.id === mexc.excercise_id)!
@@ -65,8 +66,16 @@ const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
             </div>
             <div>
                {mexc.sets.map((set, i) => (
-                  <HoldSelect key={set.id} onSelect={() => setHoldSelected(i)}>
-                     <div className={`measured-excercise__grid ${holdSelected == i && "selected"}`}>
+                  <HoldSelect
+                     key={set.id}
+                     onSelect={() => {
+                        deleteSet(mexc, i);
+                        setHoldSelected(null);
+                     }}
+                     onTarget={() => setHoldSelected(i)}
+                     onCancel={() => setHoldSelected(null)}
+                  >
+                     <div className={`measured-excercise__grid ${holdSelected === i && "selected"}`}>
                         <div>{i}.</div>
                         <div className="measured-excercise__grid-previous-resistance">
                            {set.targetResistance}
@@ -95,27 +104,44 @@ export default MeasuredMexcercise;
 
 type HoldSelectProps = {
    onSelect: () => void;
+   onTarget: () => void;
+   onCancel: () => void;
    className?: string;
    style?: CSSProperties;
    children?: React.ReactNode;
 };
 
-const HoldSelect: React.FC<HoldSelectProps> = ({ onSelect, className, style, children }) => {
-   const [downTime, registerDownTime] = useState<null | Date>(null);
+const HoldSelect: React.FC<HoldSelectProps> = ({
+   onSelect,
+   onTarget,
+   onCancel,
+   className,
+   style,
+   children,
+}) => {
+   const [timer, setTimer] = useState<NodeJS.Timeout>();
+
+   useEffect(() => {
+      return () => {
+         clearTimeout(timer);
+      };
+   });
 
    return (
       <div
          style={style ? style : {}}
          className={className ? className : "hold-select"}
          onPointerDown={() => {
-            registerDownTime(new Date());
+            onTarget();
+            setTimer(
+               setTimeout(() => {
+                  onSelect();
+               }, 1000)
+            );
          }}
          onPointerUp={() => {
-            const holdTime = new Date().getTime() - downTime!.getTime();
-
-            if (holdTime > 1000) {
-               onSelect();
-            }
+            clearTimeout(timer);
+            onCancel()
          }}
       >
          {children}

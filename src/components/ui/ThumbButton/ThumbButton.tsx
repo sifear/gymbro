@@ -8,19 +8,17 @@ const ThumbButton: React.FC<Props> = ({ onClick }) => {
    return (
       <div
          style={{
-            position: "absolute",
             width: "50px",
             height: "50px",
             borderRadius: "5px",
             backgroundColor: "var(--primary-comp-bg)",
             color: "var(--primary-comp)",
-            right: "10px",
-            bottom: '0',
-            boxShadow: "0 0 8px 2px #d3d3d3",
+            boxShadow: "0 0 8px 2px var(--button-shadow)",
             fontSize: '32px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            gridArea: 'start-btn'
          }}
          onClick={onClick}
       >

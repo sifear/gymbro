@@ -2,8 +2,6 @@ import { useRef } from "react";
 import useAppState from "../stores/useAppState";
 
 const useSaveLazy = (delay: number) => {
-   console.log('lazy with ', delay)
-
     const saveSessionToDB = useAppState((state) => state.saveSessionToDB);
  
     let timerRef = useRef<NodeJS.Timeout>(setTimeout(() => {}, delay));

@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import StartButton from "../../ui/StartButton";
+import StartButton from "./StartButton/StartButton";
 import "./Main.css";
 import useAppState from "../../../stores/useAppState";
 import Session from "../Session/Session";
 import Diary from "./Diary";
 import Drawer from "../../ui/Drawer/Drawer";
 import Tally from "./Tally";
+import ThemeButton from "./Theme/ThemeButton";
 
 interface Props {
    children?: React.ReactNode;
@@ -13,6 +14,7 @@ interface Props {
 
 const Main: React.FC<Props> = ({ children }) => {
    const page = useAppState((state) => state.page);
+   const loadInProgress = useAppState((state) => state.loadInProgress);
    const syncData = useAppState((state) => state.syncData);
 
    useEffect(() => {
@@ -36,23 +38,44 @@ const Main: React.FC<Props> = ({ children }) => {
       })();
    }, []);
 
+   useEffect(() => {
+      loadInProgress()
+   }, []);
+
    return (
       <Drawer height="full">
          <div
             style={{
                position: "fixed",
                height: "100%",
-               width: '100%',
+               width: "100%",
                top: "0",
                display: "flex",
                flexDirection: "column",
             }}
          >
-               
-               <div style={{padding: '8px 8px 0 8px', position: 'relative', display: "flex", flexDirection: "column", flexGrow: 1 }}>
+            <div
+               style={{
+                  padding: "8px 8px 0 8px",
+                  position: "relative",
+                  display: "flex",
+                  flexDirection: "column",
+                  flexGrow: 1,
+               }}
+            >
                <Diary />
-               <Tally />
-               <StartButton />
+               <div
+                  style={{
+                     display: "grid",
+                     gridTemplateAreas: '"tally tally theme-btn" "tally tally start-btn"',
+                     gridTemplateColumns: "1fr 1fr auto",
+                     gap: "4px",
+                  }}
+               >
+                  <Tally />
+                  <ThemeButton />
+                  <StartButton />
+               </div>
                <div className="main__children">{page === "session" && <Session />}</div>
             </div>
             <div
