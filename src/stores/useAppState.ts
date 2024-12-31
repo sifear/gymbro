@@ -36,7 +36,7 @@ interface AppState {
    loadSession: (session?: Session) => void;
    addMeasuredExc: (excercise: Excercise) => void;
    deleteMeasuredExc: (excercise: MeasuredExcercise) => void;
-   deleteSet: (mexc: MeasuredExcercise, index: number) => void;
+   trimMexc: (mexc: MeasuredExcercise) => void;
    saveSessionToDB: () => void;
    deleteSessionFromDB: (id: number) => void;
    finishSession: () => void;
@@ -91,10 +91,10 @@ const useAppState = create<AppState>((set, get) => ({
       set(
          produce<AppState>((state) => {
             if (session) {
-               const sessionToLoad: Session= JSON.parse(JSON.stringify(session));
-               console.log(sessionToLoad)
-               console.log(state.sessions)
-               state.session = state.sessions.find(s => s.id === sessionToLoad.id)!
+               const sessionToLoad: Session = JSON.parse(JSON.stringify(session));
+               console.log(sessionToLoad);
+               console.log(state.sessions);
+               state.session = state.sessions.find((s) => s.id === sessionToLoad.id)!;
             } else {
                const last = state.sessions.length > 0 ? state.sessions[state.sessions.length - 1] : null;
                const lastInProgress = !last?.end;
@@ -119,11 +119,11 @@ const useAppState = create<AppState>((set, get) => ({
          produce<AppState>((state) => {
             get().saveSessionToDB();
 
-            const currentSessionIx = state.sessions.findIndex((s) => s.id == state.session?.id)
+            const currentSessionIx = state.sessions.findIndex((s) => s.id == state.session?.id);
             if (currentSessionIx) {
                state.sessions.push(state.session!);
             } else {
-               state.sessions.splice(currentSessionIx, 1, state.session!)
+               state.sessions.splice(currentSessionIx, 1, state.session!);
             }
             state.session = null;
             state.page = null;
@@ -197,11 +197,19 @@ const useAppState = create<AppState>((set, get) => ({
             state.session!.excercises.splice(index, 1);
          })
       ),
-   deleteSet: (mexc, index) =>
+   trimMexc: (mexc) =>
       set(
          produce<AppState>((state) => {
-            const index = state.session!.excercises.findIndex((_mexc) => _mexc.id === mexc.id);
-            state.session!.excercises[index].sets.splice(index, 1);
+            const mexcIndex = state.session!.excercises.findIndex((_mexc) => _mexc.id === mexc.id);
+
+            while (true) {
+               const last = state.session!.excercises[mexcIndex].sets.at(-1)
+               if (last?.reps === "0") {
+                  state.session!.excercises[mexcIndex].sets.splice(-1);
+               } else {
+                  break;
+               }
+            }
          })
       ),
    addNewExcercise: (name, muscles) =>
