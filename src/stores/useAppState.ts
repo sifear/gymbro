@@ -43,7 +43,6 @@ interface AppState {
    deleteSession: (id: number) => void;
    setSetProp: (mexcId: number, setId: number, propKey: RepProps, propVal: string) => void;
    addSet: (mexc: number) => void;
-   closeSession: () => void;
    syncData: () => void;
    loadInProgress: () => void;
 }
@@ -112,7 +111,9 @@ const useAppState = create<AppState>((set, get) => ({
    finishSession: () => {
       set(
          produce((state) => {
-            state.session.end = new Date();
+            if (!state.session.end) {
+               state.session.end = new Date();
+            }
          })
       );
       set(
@@ -140,13 +141,6 @@ const useAppState = create<AppState>((set, get) => ({
          })
       );
    },
-   closeSession: () =>
-      set(
-         produce<AppState>((state) => {
-            state.session = null;
-            state.page = null;
-         })
-      ),
    addSet: (mexcId) =>
       set(
          produce<AppState>((state) => {
@@ -203,7 +197,7 @@ const useAppState = create<AppState>((set, get) => ({
             const mexcIndex = state.session!.excercises.findIndex((_mexc) => _mexc.id === mexc.id);
 
             while (true) {
-               const last = state.session!.excercises[mexcIndex].sets.at(-1)
+               const last = state.session!.excercises[mexcIndex].sets.at(-1);
                if (last?.reps === "0") {
                   state.session!.excercises[mexcIndex].sets.splice(-1);
                } else {

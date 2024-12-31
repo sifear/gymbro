@@ -19,7 +19,6 @@ const Session: React.FC<Props> = ({}) => {
    const [newExcerciseIsClosing, setNewExcerciseIsClosing] = useState(false);
    const session = useAppState((state) => state.session);
    const finishSession = useAppState((state) => state.finishSession);
-   const closeSession = useAppState((state) => state.closeSession);
    const deleteSession = useAppState((state) => state.deleteSession);
 
    if (!session) return <div>Loading...</div>;
@@ -31,11 +30,7 @@ const Session: React.FC<Props> = ({}) => {
          minimized={minimized}
          closing={sessionClosing}
          onClose={() => {
-            if (session.end === null) {
-               finishSession();
-            } else {
-               closeSession();
-            }
+            finishSession();
          }}
          header={
             <div
@@ -43,9 +38,7 @@ const Session: React.FC<Props> = ({}) => {
                style={{
                   height: minimized
                      ? "100%"
-                     : getComputedStyle(document.documentElement).getPropertyValue(
-                          "--drawer-header-height"
-                       ),
+                     : getComputedStyle(document.documentElement).getPropertyValue("--drawer-header-height"),
                }}
                onClick={() => {
                   if (minimized) {
@@ -56,24 +49,16 @@ const Session: React.FC<Props> = ({}) => {
                {!session.end ? (
                   <>
                      <Timer start={session.start} />
-                     <div
-                        className="session__content-finish"
-                        onClick={() => setSessionClosing(true)}
-                     >
+                     <div className="session__content-finish" onClick={() => setSessionClosing(true)}>
                         Finish
                      </div>
                   </>
                ) : (
                   <>
-                     <div
-                        className="session__content-close"
-                        onClick={() => setSessionClosing(true)}
-                     >
+                     <div className="session__content-close" onClick={() => setSessionClosing(true)}>
                         Close
                      </div>
-                     <div
-                        style={{ display: "flex", gap: "0.5rem" }}
-                     >
+                     <div style={{ display: "flex", gap: "0.5rem" }}>
                         <div
                            className="button"
                            onClick={() => deleteSession(session.id)}
