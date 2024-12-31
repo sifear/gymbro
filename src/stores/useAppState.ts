@@ -109,23 +109,27 @@ const useAppState = create<AppState>((set, get) => ({
          })
       ),
    finishSession: () => {
+      const isNewSession = !get().session!.end;
+
       set(
          produce((state) => {
-            if (!state.session.end) {
+            if (isNewSession) {
                state.session.end = new Date();
             }
          })
       );
+
+      get().saveSessionToDB();
+
       set(
          produce<AppState>((state) => {
-            get().saveSessionToDB();
-
             const currentSessionIx = state.sessions.findIndex((s) => s.id == state.session?.id);
-            if (currentSessionIx) {
-               state.sessions.push(state.session!);
-            } else {
+            if (currentSessionIx > -1) {
                state.sessions.splice(currentSessionIx, 1, state.session!);
+            } else {
+               state.sessions.push(state.session!);
             }
+
             state.session = null;
             state.page = null;
          })
