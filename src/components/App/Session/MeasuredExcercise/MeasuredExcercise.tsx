@@ -25,7 +25,7 @@ const MeasuredMexcercise: React.FC<Props> = ({ mexc }) => {
    const onSelectOveflowItem = (mi: MenuItems[number]) => {
       switch (mi) {
          case "history": {
-            setHistoryOf(mexc.id);
+            setHistoryOf(mexc.excercise_id);
             break;
          }
          case "delete": {
