@@ -38,7 +38,7 @@
    height: 2rem;
    border: 3px var(--primary-comp-bg) solid;
    border-radius: 5px;
-   background-color: white;
+   background-color: var(--primary-bg);
    display: flex;
    align-items: center;
    justify-content: center;

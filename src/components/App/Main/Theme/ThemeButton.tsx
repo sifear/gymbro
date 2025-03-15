@@ -2,12 +2,16 @@ import React from "react";
 
 const darkColors = {
    "--primary-bg": "#343434",
-   "--button-shadow": "#755849"
+   "--button-shadow": "#755849",
+   "--text-primary": "#fff",
+   "--secondary-comp": "#684700",
 };
 
 const lightColors = {
    "--primary-bg": "white",
-   "--button-shadow": "#d3d3d3"
+   "--button-shadow": "#d3d3d3",
+   "--text-primary": "#000",
+   "--secondary-comp": "#684700",
 };
 
 const ThemeButton: React.FC = () => {
@@ -38,7 +42,7 @@ const ThemeButton: React.FC = () => {
             alignItems: "center",
             justifyContent: "center",
             cursor: "pointer",
-            gridArea: 'theme-btn'
+            gridArea: "theme-btn",
          }}
          onClick={flipTheme}
       >

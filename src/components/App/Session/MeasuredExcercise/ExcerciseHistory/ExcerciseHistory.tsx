@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import Drawer from "../../../../ui/Drawer/Drawer";
 import useAppState from "../../../../../stores/useAppState";
 import "./ExcerciseHistory.css";
+import Graph from "../../../../Graph";
 
 interface Props {
    historyOf: number;
@@ -29,8 +30,9 @@ const ExcerciseHistory: React.FC<Props> = ({ historyOf, onClose }) => {
             onClose();
          }}
          closing={closing}
-         height="middle"
+         height="high"
       >
+         <Graph excercise_id={historyOf} />
          <div
             className="excercise-history"
             style={{
@@ -57,12 +59,8 @@ const ExcerciseHistory: React.FC<Props> = ({ historyOf, onClose }) => {
                   >
                      {new Date(session.date).toLocaleDateString("hu-HU")}
                   </div>
-                  <div className="excercise-history__sundry">
-                     {totalReps(session.mexcs[0].sets)}
-                  </div>
-                  <div className="excercise-history__sundry">
-                     {totalVolume(session.mexcs[0].sets)}
-                  </div>
+                  <div className="excercise-history__sundry">{totalReps(session.mexcs[0].sets)}</div>
+                  <div className="excercise-history__sundry">{totalVolume(session.mexcs[0].sets)}</div>
                   {session.mexcs[0].sets.map((set, i) => (
                      <Fragment key={set.id}>
                         <div className="excercise-history__resistance" data-even={i % 2}>

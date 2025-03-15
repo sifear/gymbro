@@ -4,6 +4,8 @@
    --primary-comp: #fff8dc;
    --primary-comp-bg: #ef9c66;
 
+   --text-primary: #000;
+
    --secondary-comp: #684700;
    --secondary-comp-bg: #ffde95;
 
@@ -16,7 +18,7 @@ body {
    background-color: rgb(126, 126, 126);
    overflow: hidden;
    font-family: sans-serif;
-   color: black;
+   color: var(--text-primary);
 }
 
 .button {

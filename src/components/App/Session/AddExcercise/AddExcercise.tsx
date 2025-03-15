@@ -38,6 +38,7 @@ const AddExcercise: React.FC<Props> = ({ onClose }) => {
                   style={{
                      display: "flex",
                      gap: "8px",
+                     alignItems: 'center'
                   }}
                   onClick={() => saveLazy(() => _addToSession(exc))}
                >
