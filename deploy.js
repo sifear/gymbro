@@ -1,4 +1,4 @@
-#!/home/sifear/.nvm/versions/node/v21.2.0/bin/node
+#!/home/sifear/.nvm/versions/node/v22.13.0/bin/node
 
 const fs = require("node:fs");
 const { exec } = require("node:child_process");

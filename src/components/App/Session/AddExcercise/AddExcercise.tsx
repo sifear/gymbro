@@ -89,9 +89,6 @@ const filename = (name: string) =>
 const randomColor = () => {
    const colors = ["#FFFBDA", "#FFEC9E", "#FFBB70", "#ED9455"];
 
-   console.log(Math.floor(Math.random() * 10) % 4);
-   console.log(colors[(Math.random() * 10) % 4]);
-
    return colors[Math.floor(Math.random() * 10) % 4];
 };
 

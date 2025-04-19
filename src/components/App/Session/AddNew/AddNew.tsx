@@ -20,7 +20,6 @@ const AddNew: React.FC<Props> = ({ onClose }) => {
       });
 
       addNewExcercise(nameRef.current!.value, muscles);
-      console.log("onClose");
       onClose();
    };
 

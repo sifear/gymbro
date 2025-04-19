@@ -31,6 +31,7 @@ const ExcerciseHistory: React.FC<Props> = ({ historyOf, onClose }) => {
          }}
          closing={closing}
          height="high"
+         resizable
       >
          <Graph excercise_id={historyOf} />
          <div

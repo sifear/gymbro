@@ -91,8 +91,6 @@ const useAppState = create<AppState>((set, get) => ({
          produce<AppState>((state) => {
             if (session) {
                const sessionToLoad: Session = JSON.parse(JSON.stringify(session));
-               console.log(sessionToLoad);
-               console.log(state.sessions);
                state.session = state.sessions.find((s) => s.id === sessionToLoad.id)!;
             } else {
                const last = state.sessions.length > 0 ? state.sessions[state.sessions.length - 1] : null;
@@ -260,7 +258,6 @@ const useAppState = create<AppState>((set, get) => ({
          produce<AppState>((state) => {
             const last = state.sessions.findLast((i) => true);
             if (last?.end === null) {
-               console.log(last.start);
                state.session = last;
                state.page = "session";
             }
